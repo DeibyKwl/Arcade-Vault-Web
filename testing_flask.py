@@ -1,19 +1,10 @@
-from flask import Flask
+from flask import Flask, jsonify
 #from flask_mysqldb import MySQL
 import mysql.connector
 import json
 
 app = Flask(__name__)
 
-
-#mysql = MySQL()
-# Configure MySQL
-# app.config['MYSQL_DATABASE_HOST'] = 'localhost'
-# app.config['MYSQL_DATABASE_USER'] = 'root'
-# app.config['MYSQL_DATABASE_PASSWORD'] = 'dkwl12247'
-# app.config['MYSQL_DATABASE_DB'] = 'arcade'
-#mysql.init_app(app)
-#mysql = MySQL(app)
 
 @app.route('/')
 def index():
@@ -33,7 +24,8 @@ def test_query():
     cur.execute("SELECT * FROM games")
     data = cur.fetchall()
     cur.close()
-    return str(data)
+    #return str(data)
+    return jsonify({'games': data})
 
 
     # cur = mysql.connection.cursor()
