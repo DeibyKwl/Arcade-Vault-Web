@@ -113,7 +113,6 @@ def game_by_genre():
             genre_lst_query += f"\'{i}\',"
             
         genre_lst_query = genre_lst_query[:-1] # get rid of last comma
-        print(genre_lst_query)
     else:
         genre_value = genre_value.split() # just turn it into a list of a word
 
@@ -189,60 +188,123 @@ def games_by_store():
 
 
 
-# Search store by address (only city for now) (NOT IMPLEMENTED YET) 
+# Search store by address (NOT IMPLEMENTED YET) 
+@app.route('/store_by_address')
+def store_by_address():
+    store_address = request.args.get('store_address')
+    with open(config_file, "r") as f:
+        config = json.load(f)
+    connection_config = config["mysql"]
+    data_base = mysql.connector.connect(**connection_config)
+
+    # preparing a cursor object 
+    cur = data_base.cursor()
+    cur.execute(f"SELECT store_name FROM store\
+                WHERE address LIKE \'%{store_address}%\'")
+    
+    data = cur.fetchall()
+    cur.close()
+    return jsonify(data)
 
 
 
 
+
+
+# Search store by city (NOT IMPLEMENTED YET) 
+@app.route('/store_by_city')
+def store_by_city():
+    store_city = request.args.get('store_city')
+    store_city = 'sac'
+    with open(config_file, "r") as f:
+        config = json.load(f)
+    connection_config = config["mysql"]
+    data_base = mysql.connector.connect(**connection_config)
+
+    # preparing a cursor object 
+    cur = data_base.cursor()
+    cur.execute(f"SELECT store_name FROM store\
+                WHERE city LIKE \'%{store_city}%\'")
+    
+    data = cur.fetchall()
+    cur.close()
+    return jsonify(data)
 
 
 
 
 # Search store by games name (find a store with that particular game) (NOT IMPLEMENTED YET)
+@app.route('/store_by_games')
+def store_by_games():
+    game_name = request.args.get('game_name')
+    with open(config_file, "r") as f:
+        config = json.load(f)
+    connection_config = config["mysql"]
+    data_base = mysql.connector.connect(**connection_config)
 
-
-
-
-
-
-
-# Search store by user (NOT IMPLEMENTED YET)
-
-
-
-
-
-
-
-# Search stores with cost less than the average cost (NOT IMPLEMENTED YET)
-
-
+    # preparing a cursor object 
+    cur = data_base.cursor()
+    cur.execute(f"SELECT store_name FROM store\
+                INNER JOIN store_game ON store_game.store_id = store.store_id\
+                INNER JOIN games ON games.game_id = store_game.game_id\
+                WHERE game_name LIKE '%{game_name}%';")
+    
+    data = cur.fetchall()
+    cur.close()
+    return jsonify(data)
 
 
 
 
 
 # Look for game that cost less than the average of all games (this is gonna be its own tab, one click and will show everything) (NOT IMPLEMENTED YET)
+@app.route('/store_game_avg_cost_less_than_total_avg')
+def store_game_avg_cost_less_than_total_avg():
+    with open(config_file, "r") as f:
+        config = json.load(f)
+    connection_config = config["mysql"]
+    data_base = mysql.connector.connect(**connection_config)
 
-
-
-
+    # preparing a cursor object 
+    cur = data_base.cursor()
+    cur.execute(f"WITH cost_total (store_name, value) AS\
+                    (SELECT store_name, ROUND(AVG(game_cost), 2) FROM store\
+                    INNER JOIN store_game ON store_game.store_id = store.store_id\
+                    INNER JOIN games ON games.game_id = store_game.game_id\
+                    GROUP BY store_name)\
+                SELECT store_name, value FROM cost_total\
+                WHERE value < (SELECT AVG(value) FROM cost_total);")
+    
+    data = cur.fetchall()
+    cur.close()
+    return jsonify(data)
 
 
 
 
 # Search total cost of stores that are less than the average of total games of all stores (this is gonna be its own tab, one click and will show everything) (NOT IMPLEMENTED YET)
+@app.route('/store_total_coss_less_than_avg')
+def store_total_coss_less_than_avg():
+    with open(config_file, "r") as f:
+        config = json.load(f)
+    connection_config = config["mysql"]
+    data_base = mysql.connector.connect(**connection_config)
 
-
-
-
-
-
-# Search store in multiple cities??? (may not implement it) (NOT IMPLEMENTED YET)
-
-
-
-
+    # preparing a cursor object 
+    cur = data_base.cursor()
+    cur.execute(f"WITH cost_total (store_name, value) AS\
+                    (SELECT store_name, SUM(game_cost) FROM store\
+                    INNER JOIN store_game ON store_game.store_id = store.store_id\
+                    INNER JOIN games ON games.game_id = store_game.game_id\
+                    GROUP BY store_name),\
+                cost_total_avg (value) AS\
+                (SELECT AVG(value) FROM cost_total)\
+                SELECT store_name, cost_total.value FROM cost_total, cost_total_avg\
+                WHERE cost_total.value < cost_total_avg.value;")
+    
+    data = cur.fetchall()
+    cur.close()
+    return jsonify(data)
 
 
 
@@ -279,6 +341,11 @@ def count_all_genres():
 
 
 # SHOULD WE IMPLEMENT THEM???? search store by store_name and search game by game_name
+
+
+
+
+
 
 
 
