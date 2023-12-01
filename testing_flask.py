@@ -54,7 +54,7 @@ def games_by_year():
     
     # preparing a cursor object
     cur = data_base.cursor()
-    cur.execute("SELECT game_name FROM games WHERE release_year = %s", (year_value,))
+    cur.execute(f"SELECT game_name FROM games WHERE release_year = {year_value}")
     data = cur.fetchall()
     cur.close()
     return jsonify(data)
@@ -91,8 +91,8 @@ def game_by_type_of_machine():
 
     # preparing a cursor object 
     cur = data_base.cursor()
-    cur.execute("SELECT game_name, type_of_machine FROM games\
-                WHERE type_of_machine LIKE \'%\s%\';", (type_of_machine))
+    cur.execute(f"SELECT game_name, type_of_machine FROM games\
+                WHERE type_of_machine LIKE \'%{type_of_machine}%\';")
     
     data = cur.fetchall()
     cur.close()
@@ -129,7 +129,7 @@ def game_by_genre():
         genre_value = ''.join(genre_value) # Turn back into string
         cur.execute(f"SELECT game_name FROM games\
                     INNER JOIN game_genre ON game_genre.game_id = games.game_id\
-                    WHERE genre LIKE \'%{str(genre_value)}%\';")
+                    WHERE genre LIKE \'%{genre_value}%\';")
         
     # If it is looking for more than one genre, it has to be full names for the genre
     else:
@@ -146,16 +146,46 @@ def game_by_genre():
 
 
 # Search game by number of players (NOT IMPLEMENTED YET)
+@app.route('/game_by_num_players')
+def game_by_num_players():
+    num_of_players = request.args.get('num_of_players')
+    with open(config_file, "r") as f:
+        config = json.load(f)
+    connection_config = config["mysql"]
+    data_base = mysql.connector.connect(**connection_config)
 
+    # preparing a cursor object 
+    cur = data_base.cursor()
+    cur.execute(f"SELECT game_name, num_of_players FROM games\
+                WHERE num_of_players <= {num_of_players};")
+    
+    data = cur.fetchall()
+    cur.close()
+    return jsonify(data)
 
 
 
 
 
 # Search games by store name (NOT IMPLEMENTED YET)
+@app.route('/games_by_store')
+def games_by_store():
+    store_name = request.args.get('store_name')
+    with open(config_file, "r") as f:
+        config = json.load(f)
+    connection_config = config["mysql"]
+    data_base = mysql.connector.connect(**connection_config)
 
-
-
+    # preparing a cursor object 
+    cur = data_base.cursor()
+    cur.execute(f"SELECT game_name FROM games\
+                INNER JOIN store_game ON store_game.game_id = games.game_id\
+                INNER JOIN store ON store.store_id = store_game.store_id\
+                WHERE store.store_name LIKE '%{store_name}%';")
+    
+    data = cur.fetchall()
+    cur.close()
+    return jsonify(data)
 
 
 
@@ -227,10 +257,28 @@ def game_by_genre():
 
 
 # Count games by genre (this is gonna be its own tab, one click and will show everything) (NOT IMPLEMENTED YET)
+@app.route('/count_all_genres')
+def count_all_genres():
+    with open(config_file, "r") as f:
+        config = json.load(f)
+    connection_config = config["mysql"]
+    data_base = mysql.connector.connect(**connection_config)
+
+    # preparing a cursor object 
+    cur = data_base.cursor()
+    cur.execute(f"SELECT genre, COUNT(*) AS num_of_games FROM games\
+                INNER JOIN game_genre ON game_genre.game_id = games.game_id\
+                GROUP BY genre\
+                ORDER BY COUNT(*) DESC;")
+    
+    data = cur.fetchall()
+    cur.close()
+    return jsonify(data)
 
 
 
 
+# SHOULD WE IMPLEMENT THEM???? search store by store_name and search game by game_name
 
 
 
