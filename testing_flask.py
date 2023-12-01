@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 #from flask_mysqldb import MySQL
 import mysql.connector
 import json
@@ -37,11 +37,36 @@ def all_games_query():
     data_base = mysql.connector.connect(**connection_config)
 
     # preparing a cursor object
-    cur = data_base.cursor()
-    cur.execute("SELECT * FROM games")
+    cur = data_base.cursor(dictionary=True)
+    cur.execute("SELECT game_id, game_name, game_cost, num_of_players, release_year, type_of_machine FROM games")
     data = cur.fetchall()
     cur.close()
-    return jsonify({'games': data})
+    return jsonify(data)
+
+
+@app.route('/games_by_year')
+def games_by_year():
+    year_value = request.args.get('year_value')
+    
+    with open(config_file, "r") as f:
+        config = json.load(f)
+    connection_config = config["mysql"]
+    data_base = mysql.connector.connect(**connection_config)
+    
+    # preparing a cursor object
+    cur = data_base.cursor()
+    
+    # execute the query
+    cur.execute("SELECT game_name FROM games WHERE release_year = %s", (year_value,))
+    
+    # fetch the results
+    data = cur.fetchall()
+    
+    # close the cursor and database connection
+    cur.close()
+    
+    # format and return the results as JSON
+    return jsonify(data)
 
 
 

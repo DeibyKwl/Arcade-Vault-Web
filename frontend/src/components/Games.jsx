@@ -1,8 +1,12 @@
 import React from 'react'
+import GamesList from './GamesList.jsx';
+
 
 const Games = () => {
   return (
-    <div>Games</div>
+    <div>
+      <GamesList />
+    </div>
   )
 }
 
