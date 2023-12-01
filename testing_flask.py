@@ -60,7 +60,7 @@ def games_by_year():
     return jsonify(data)
 
 
-# Search game by cost
+# Search game by cost (NOT IMPLEMENTED YET)
 @app.route('/game_by_cost')
 def game_by_cost():
     cost_value = request.args.get('cost_value')
@@ -74,105 +74,118 @@ def game_by_cost():
     cur.execute("SELECT game_name, game_cost from games\
                 INNER JOIN store_game ON store_game.game_id = games.game_id\
                 WHERE game_cost <= %s", (cost_value))
+    
     data = cur.fetchall()
     cur.close()
     return jsonify(data)
 
 
-# Search game by type of machine
+# Search game by type of machine (NOT IMPLEMENTED YET)
+@app.route('/game_by_type_of_machine')
+def game_by_type_of_machine():
+    type_of_machine = request.args.get('type_of_machine')
+    with open(config_file, "r") as f:
+        config = json.load(f)
+    connection_config = config["mysql"]
+    data_base = mysql.connector.connect(**connection_config)
 
+    # preparing a cursor object 
+    cur = data_base.cursor()
+    cur.execute("SELECT game_name, type_of_machine FROM games\
+                WHERE type_of_machine LIKE \'%\s%\';", (type_of_machine))
+    
+    data = cur.fetchall()
+    cur.close()
+    return jsonify(data)
 
 
+# Search game by genre (NOT IMPLEMENTED YET)
 
 
 
-# Search game by genre
 
 
 
+# Search game by number of players (NOT IMPLEMENTED YET)
 
 
 
-# Search game by number of players
 
 
 
+# Search games by store name (NOT IMPLEMENTED YET)
 
 
 
-# Search games by store name
 
 
 
+# Search store by address (only city for now) (NOT IMPLEMENTED YET) 
 
 
 
-# Search store by address (only city for now)
 
 
 
 
 
+# Search store by games name (find a store with that particular game) (NOT IMPLEMENTED YET)
 
 
 
-# Search store by games name (find a store with that particular game)
 
 
 
 
+# Search store by user (NOT IMPLEMENTED YET)
 
 
 
-# Search store by user
 
 
 
 
+# Search stores with cost less than the average cost (NOT IMPLEMENTED YET)
 
 
 
-# Search stores with cost less than the average cost
 
 
 
 
+# Look for game that cost less than the average of all games (this is gonna be its own tab, one click and will show everything) (NOT IMPLEMENTED YET)
 
 
 
-# Look for game that cost less than the average of all games (this is gonna be its own tab, one click and will show everything)
 
 
 
 
 
+# Search total cost of stores that are less than the average of total games of all stores (this is gonna be its own tab, one click and will show everything) (NOT IMPLEMENTED YET)
 
 
 
-# Search total cost of stores that are less than the average of total games of all stores (this is gonna be its own tab, one click and will show everything)
 
 
 
+# Search store in multiple cities??? (may not implement it) (NOT IMPLEMENTED YET)
 
 
 
-# Search store in multiple cities??? (may not implement it)
 
 
 
 
+# Search store by store hours(this one will probably be the hardest) (NOT IMPLEMENTED YET)
 
 
 
-# Search store by store hours(this one will probably be the hardest)
 
 
 
 
-
-
-
-# SECTION FOR INSERTING, UPDATING, AND DELETING ########################################################################
+# SECTION FOR INSERTING, UPDATING, AND DELETING ######################################################################## (NOT IMPLEMENTED YET)
 
 
 
