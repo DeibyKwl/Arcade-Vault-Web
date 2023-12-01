@@ -2,9 +2,10 @@ from flask import Flask, jsonify
 #from flask_mysqldb import MySQL
 import mysql.connector
 import json
+from flask_cors import CORS
 
 app = Flask(__name__)
-
+CORS(app)
 
 @app.route('/')
 def index():
@@ -20,11 +21,11 @@ def all_stores_query():
     data_base = mysql.connector.connect(**connection_config)
 
     # preparing a cursor object
-    cur = data_base.cursor()
-    cur.execute("SELECT * FROM store")
+    cur = data_base.cursor(dictionary=True)  # This will return results as dictionaries
+    cur.execute("SELECT store_id, store_name, website, city, address FROM store")
     data = cur.fetchall()
     cur.close()
-    return jsonify({'store': data})
+    return jsonify(data)
 
 
 
