@@ -3,7 +3,7 @@
 connectorConfig.json
 
 # dependencies
-/node_modules
+/frontend/node_modules
 /.pnp
 .pnp.js
 
