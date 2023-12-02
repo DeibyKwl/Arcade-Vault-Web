@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import './HomePage.css'; // Import your CSS file
+// import './HomePage.css'; // Import your CSS file
 import Stores from '../../components/Stores.jsx';
 import Games from '../../components/Games.jsx';
 import GamesByYear from '../../components/GamesByYear.jsx';
@@ -21,6 +21,8 @@ const HomePage = () => {
 
       <div>
         <nav>
+        <h1 className="text-4xl text-center text-blue-500">Hello World</h1>
+
           <ul className="tab-list">
             <li className={activeTab === 'stores' ? 'active-tab' : ''}>
               <Link to="/stores" onClick={() => setActiveTab('stores')}>Stores</Link>
@@ -37,6 +39,7 @@ const HomePage = () => {
         <Routes>
           <Route path="/stores" element={<Stores />} />
           <Route path="/games" element={<Games />} />
+          <Route path="/gamesbyyear" element={<GamesByYear />} />
         </Routes>
       </div>
 
