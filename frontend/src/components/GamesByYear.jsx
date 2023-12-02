@@ -3,7 +3,7 @@ import GamesByYearSearchComp from './GamesByYearSearchComp.jsx';
 
 const GamesByYear = () => {
     return (
-        <div>
+        <div className='arcade-font'>
             <GamesByYearSearchComp />
         </div>
     );

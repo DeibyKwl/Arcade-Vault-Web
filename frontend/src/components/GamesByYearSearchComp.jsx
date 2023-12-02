@@ -31,7 +31,7 @@ const GamesByYearSearchComp = () => {
         onChange={handleYearChange}
         placeholder="Enter year"
       />
-      <button onClick={searchGamesByYear}>Search</button>
+      <h1><button onClick={searchGamesByYear}>Search</button></h1>
 {/* this is kind of a doozy, but basically using maps  */}
       {searched ? (
         Array.isArray(games) && games.length > 0 ? (

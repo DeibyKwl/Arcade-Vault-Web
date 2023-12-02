@@ -39,35 +39,39 @@ const StoreList = () => {
       {loading ? (
         <p>Loading stores...</p>
       ) : (
-        <div>
+        <div className='flex flex-col items-center'>
+          <h1>All Stores</h1>
           <input
             type="text"
             value={searchTerm}
             onChange={handleSearchChange}
             placeholder="Search stores..."
+            className="mb-4"
           />
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Website</th>
-                <th>City</th>
-                <th>Address</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredStores.map((store) => (
-                <tr key={store.store_id}>
-                  <td>{store.store_id}</td>
-                  <td>{store.store_name}</td>
-                  <td>{store.website}</td>
-                  <td>{store.city}</td>
-                  <td>{store.address}</td>
+          <div className="scrollable-container w-full">
+            <table className="min-w-full">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Website</th>
+                  <th>City</th>
+                  <th>Address</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {filteredStores.map((store) => (
+                  <tr key={store.store_id}>
+                    <td>{store.store_id}</td>
+                    <td>{store.store_name}</td>
+                    <td>{store.website}</td>
+                    <td>{store.city}</td>
+                    <td>{store.address}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </div>

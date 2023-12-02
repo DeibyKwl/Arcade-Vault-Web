@@ -19,45 +19,54 @@ const HomePage = () => {
     }
   };
 
-
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
 
   return (
-    <div className="vaporwave-bg min-h-screen flex flex-col">
-      {/* Navigation at the top */}
-      <nav className="flex justify-center space-x-4 p-4">
 
-        <h1 className={`${activeTab === 'stores' ? 'active-tab' : ''}`}>
-          <button onClick={() => handleTabClick('stores')}>All Stores</button>
-        </h1>
+    <div className="screen-bg min-h-screen flex flex-col items-center justify-center">
+      <div className="screen-effect w-full max-w-6xl p-4">
+        <div className="body min-h-screen flex flex-col items-center justify-center p-4">
+          <div className="flex justify-center items-start w-full px-10 mt-4">
 
-        <h1 className={`${activeTab === 'games' ? 'active-tab' : ''}`}>
-          <button onClick={() => handleTabClick('games')}>All Games</button>
-        </h1>
+            {/* score on the left */}
+            <h2 className="arcade-font text-lg text-yellow-500 px-10">HI-SCORE-29500</h2>
 
-        <h1 className={`${activeTab === 'gamesbyyear' ? 'active-tab' : ''}`}>
-          <button onClick={() => handleTabClick('gamesbyyear')}>Games By Year</button>
-        </h1>
+            {/* Arcade Vault in the center */}
+            <h1 className="arcade-font red-orange-gradient-text text-2xl px-8 "> Arcade Vault </h1>
 
-        <h1 className={`${activeTab === 'gamesbygenre' ? 'active-tab' : ''}`}>
-          <button onClick={() => handleTabClick('gamesbygenre')}>Games By Genre</button>
-        </h1>
-      </nav>
+            {/* credits on the right */}
+            <h2 className="arcade-font text-lg text-yellow-500 outline-text px-10">CREDIT 0</h2>
+          </div>
 
-      {/* Main content */}
-      {/* I'd like to center this */}
-      <div className="text-center">
-        <h1 className="text-teal-600 text text-2xl outline-text">Arcade Vault</h1>
-      </div>
+          <nav className="flex justify-center space-x-4 p-4 text-white">
+            {['stores', 'games', 'gamesbyyear', 'gamesbygenre'].map((tab) => (
+              <h1 key={tab} className={`arcade-font  ${activeTab === tab ? 'blue-gradient-text' : ''}`}>
+                <button onClick={() => handleTabClick(tab)}>
+                  {activeTab === tab ? '>' : ''} {tab.replace(/([A-Z])/g, ' $1')}
+                </button>
+              </h1>
+            ))}
+          </nav>
 
-      <div className="flex flex-col flex-grow items-center justify-start pt-8">
-        <div className="w-full md:w-2/3 lg:w-1/3 bg-black text-white p-4 rounded-lg shadow-lg mx-auto">
-          {renderComponent()}
+
+
+          {/* Game Over text */}
+          <h1 className="arcade-font text-xl text-yellow-900 text-shadow-lg outline-text my-4">GAME OVER</h1>
+
+
+
+          {/* Main content */}
+          <div className="flex-grow w-full flex flex-col items-center justify-start">
+            <div className="w-full md:w-4/5 lg:w-3/4 bg-black text-white p-4 rounded-lg shadow-lg">
+              {renderComponent()}
+            </div>
+            </div>
+          </div>
+
         </div>
       </div>
-    </div>
   );
 };
 
