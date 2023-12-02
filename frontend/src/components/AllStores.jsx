@@ -1,7 +1,11 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import StoreRow from '../rowcomponents/StoreRow'; // Import StoreRow
+import StoreTableHeader from '../rowcomponents/StoreTableHeader'; // Import StoreTableHeader
 
-const StoreList = () => {
+
+const AllStores = () => {
   const [stores, setStores] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(false); // Added loading state
@@ -28,10 +32,10 @@ const StoreList = () => {
 
   const filteredStores = searchTerm
     ? stores.filter((store) =>
-        Object.values(store).some((value) =>
-          value.toLowerCase().includes(searchTerm.toLowerCase())
-        )
+      Object.values(store).some((value) =>
+        value.toLowerCase().includes(searchTerm.toLowerCase())
       )
+    )
     : stores;
 
   return (
@@ -46,28 +50,14 @@ const StoreList = () => {
             value={searchTerm}
             onChange={handleSearchChange}
             placeholder="Search stores..."
-            className="mb-4"
+            className="mb-4 text-black-900" // Ensure the class is applied correctly
           />
           <div className="scrollable-container w-full">
-            <table className="min-w-full">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Website</th>
-                  <th>City</th>
-                  <th>Address</th>
-                </tr>
-              </thead>
+            <table className="min-w-full fixed-layout-table">
+              <StoreTableHeader /> {/* Use the StoreTableHeader component */}
               <tbody>
                 {filteredStores.map((store) => (
-                  <tr key={store.store_id}>
-                    <td>{store.store_id}</td>
-                    <td>{store.store_name}</td>
-                    <td>{store.website}</td>
-                    <td>{store.city}</td>
-                    <td>{store.address}</td>
-                  </tr>
+                  <StoreRow key={store.store_id} store={store} /> // Use the StoreRow component for each store
                 ))}
               </tbody>
             </table>
@@ -78,4 +68,4 @@ const StoreList = () => {
   );
 };
 
-export default StoreList;
+export default AllStores;

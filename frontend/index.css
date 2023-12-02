@@ -157,4 +157,14 @@
         /* Maximum height based on the aspect ratio */
     }
 
+    .fixed-layout-table {
+        table-layout: fixed;
+        width: 100%;
+      }
+    
+    .th-id { width: 10%; }
+    .th-name { width: 20%; }
+    .th-website { width: 35%; }
+    .th-city { width: 15%; }
+    .th-address { width: 25%; }
 }

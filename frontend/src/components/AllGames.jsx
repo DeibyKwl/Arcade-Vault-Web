@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import GameRow from '../rowcomponents/GameRow';
+import GameTableHeader from '../rowcomponents/GameTableHeader';
 
-const GamesList = () => {
+const AllGames = () => {
     const [games, setGames] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [loading, setLoading] = useState(false); // Added loading state
@@ -40,37 +42,22 @@ const GamesList = () => {
             {loading ? (
                 <p>Loading games...</p>
             ) : (
-                <div>
-                    <h1 className='flex justify-center'>All Games</h1>
-                    <h1><input
+                <div className='flex flex-col items-center'>
+                    <h1 >All Games</h1>
+                    <input
                         type="text"
                         value={searchTerm}
                         onChange={handleSearchChange}
                         placeholder="Search games..."
-                    /></h1>
+                        style={{ color: 'black' }} // Set the text color to black
+                    />
                     <div className="scrollable-container w-full">
 
                         <table className="min-w-full">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Cost</th>
-                                    <th>Players</th>
-                                    <th>Release Date</th>
-                                    <th>Machine Type</th>
-                                </tr>
-                            </thead>
+                            <GameTableHeader />
                             <tbody>
                                 {filteredGames.map(game => (
-                                    <tr key={game.game_id}> {/* Ensure that game_id is the correct key */}
-                                        <td>{game.game_id}</td>
-                                        <td>{game.game_name}</td>
-                                        <td>{game.game_cost}</td>
-                                        <td>{game.num_of_players}</td>
-                                        <td>{game.release_year}</td>
-                                        <td>{game.type_of_machine}</td>
-                                    </tr>
+                                    <GameRow key={game.game_id} game={game} />
                                 ))}
                             </tbody>
                         </table>
@@ -81,4 +68,4 @@ const GamesList = () => {
     );
 };
 
-export default GamesList;
+export default AllGames;
