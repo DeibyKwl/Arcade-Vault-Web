@@ -31,4 +31,12 @@
   .pixel-font {
     font-family: 'Press Start 2P', cursive;
   }
+
+  .outline-text {
+    text-shadow:
+      -1px -1px 0 #000,
+      5px -1px 0 #000,
+      -1px 1px 0 #000,
+      5px 1px 0 #000;
+  }
 }
