@@ -1,1 +1,0 @@
-SELECT store_name FROM store;

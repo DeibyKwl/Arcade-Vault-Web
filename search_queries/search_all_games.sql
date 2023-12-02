@@ -1,1 +1,0 @@
-SELECT game_name FROM games;
