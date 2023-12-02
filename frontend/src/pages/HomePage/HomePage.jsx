@@ -1,48 +1,57 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-// import './HomePage.css'; // Import your CSS file
 import Stores from '../../components/Stores.jsx';
 import Games from '../../components/Games.jsx';
 import GamesByYear from '../../components/GamesByYear.jsx';
 
-
-// we have a fucntional home page now
-// but its very uggly so im going to add some css
-// and make it look better
-
-
 const HomePage = () => {
-  const [activeTab, setActiveTab] = useState('stores'); // Initial active tab
+  const [activeTab, setActiveTab] = useState('stores');
 
-// i'd like to make a better looking home page using some tailwind css
-// i'll start by making a nav bar
-// then i'll add some css to make it look better
+  const renderComponent = () => {
+    switch (activeTab) {
+      case 'stores':
+        return <Stores />;
+      case 'games':
+        return <Games />;
+      case 'gamesbyyear':
+        return <GamesByYear />;
+      default:
+        return <Stores />;
+    }
+  };
+
+
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
+
   return (
+    <div className="vaporwave-bg min-h-screen flex flex-col">
+      {/* Navigation at the top */}
+      <nav className="flex justify-center space-x-4 p-4">
+        
+        <h1 className={`${activeTab === 'stores' ? 'active-tab' : ''}`}>
+          <button onClick={() => handleTabClick('stores')}>All Stores</button>
+        </h1>
+        
+        <h1 className={`${activeTab === 'games' ? 'active-tab' : ''}`}>
+          <button onClick={() => handleTabClick('games')}>All Games</button>
+        </h1>
+        
+        <h1 className={`${activeTab === 'gamesbyyear' ? 'active-tab' : ''}`}>
+          <button onClick={() => handleTabClick('gamesbyyear')}>Games By Year |</button>
+        </h1>
 
-      <div>
-        <nav>
-        <h1 className="text-4xl text-center text-blue-500">Hello World</h1>
+        <h1 className={`${activeTab === 'gamesbygenre' ? 'active-tab' : ''}`}>
+          <button onClick={() => handleTabClick('gamesbygenre')}>Games By Genre</button>
+        </h1>
+      </nav>
 
-          <ul className="tab-list">
-            <li className={activeTab === 'stores' ? 'active-tab' : ''}>
-              <Link to="/stores" onClick={() => setActiveTab('stores')}>Stores</Link>
-            </li>
-            <li className={activeTab === 'games' ? 'active-tab' : ''}>
-              <Link to="/games" onClick={() => setActiveTab('games')}>Games</Link>
-            </li>
-            <li className={activeTab === 'gamesbyyear' ? 'active-tab' : ''}>
-              <Link to="/gamesbyyear" onClick={() => setActiveTab('gamesbyyear')}>Games By Year</Link>
-            </li>
-          </ul>
-        </nav>
-
-        <Routes>
-          <Route path="/stores" element={<Stores />} />
-          <Route path="/games" element={<Games />} />
-          <Route path="/gamesbyyear" element={<GamesByYear />} />
-        </Routes>
+      <div className="flex flex-col flex-grow items-center justify-start pt-8">
+        <div className="w-full md:w-2/3 lg:w-1/3 bg-black text-white p-4 rounded-lg shadow-lg mx-auto">
+          {renderComponent()}
+        </div>
       </div>
-
+    </div>
   );
 };
 

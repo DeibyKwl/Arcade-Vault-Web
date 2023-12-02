@@ -7,6 +7,7 @@ import GamesByYear from '../components/GamesByYear';
 
 const AppRouter = () => {
   return (
+
     <Router>
       <Routes>
         <Route path="*" element={<HomePage />} />

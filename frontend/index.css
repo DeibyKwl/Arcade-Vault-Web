@@ -1,3 +1,34 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Press Start 2P', cursive;
+    }
+}
+
+@layer components {
+  .vaporwave-bg {
+    /* Vaporwave background styles: pastel colors, gradients, etc. */
+    background: linear-gradient(to right, #ff77e9, #7dafff);
+  }
+  .neon-glow {
+    text-shadow: 0 0 10px #ff77e9, 0 0 20px #ff77e9;
+  }
+  .nav-link {
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  .active-tab .nav-link {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .pixel-font {
+    font-family: 'Press Start 2P', cursive;
+  }
+}
