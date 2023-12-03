@@ -29,9 +29,7 @@ const HomePage = () => {
         setActiveTab(tab);
     };
 
-    const handleTabClick = (tab) => {
-        setActiveTab(tab);
-    };
+
 
     return (
 

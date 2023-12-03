@@ -15,7 +15,7 @@ const StoreGames = () => {
   const searchGamesByStoreName = async () => {
     setIsSearched(true);
     try {
-      const response = await axios.get(`http://localhost:5000/store_games`, { params: { store_name: storeName } });
+      const response = await axios.get(`http://localhost:5000/games_by_store`, { params: { store_name: storeName } });
       setGames(response.data);
     } catch (error) {
       console.error('Error fetching games: ', error);

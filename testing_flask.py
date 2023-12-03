@@ -54,7 +54,7 @@ def games_by_year():
     
     # preparing a cursor object
     cur = data_base.cursor()
-    cur.execute(f"SELECT game_id, game_name, game_cost, num_of_players, release_year, type_of_machine FROM games WHERE release_year = {year_value}")
+    cur.execute(f"SELECT game_name FROM games WHERE release_year = {year_value}")
     data = cur.fetchall()
     cur.close()
     return jsonify(data)
@@ -337,29 +337,6 @@ def count_all_genres():
     cur.close()
     return jsonify(data)
 
-
-
-
-
-# Connect store with Games
-@app.route('/store_games')
-def store_games():
-    store_name = request.args.get('store_name')
-    with open(config_file, "r") as f:
-        config = json.load(f)
-    connection_config = config["mysql"]
-    data_base = mysql.connector.connect(**connection_config)
-    # preparing a cursor object 
-    cur = data_base.cursor()
-
-    cur.execute(f"SELECT games.game_id, game_name, game_cost, num_of_players, release_year, type_of_machine FROM games\
-                INNER JOIN store_game ON store_game.game_id = games.game_id\
-                INNER JOIN store ON store.store_id = store_game.store_id\
-                WHERE store.store_name = \'{store_name}\';")
-
-    data = cur.fetchall()
-    cur.close()
-    return jsonify(data)
 
 
 
