@@ -33,6 +33,9 @@ const GamesByStore = () => {
     }
   };
 
+  //NOTE: probably should return the name of matches? something? right now it just shows the list of games at the store entered.
+
+
   return (
     <div className='flex flex-col items-center'>
       <h1 className='pb-2'>Games By Store Name</h1>

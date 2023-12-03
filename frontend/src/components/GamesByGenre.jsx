@@ -11,13 +11,13 @@ const GamesByGenre = () => {
         'Shooter',
         'Platformer',
         'Racing',
-        'Rhythm Game',
+        // 'Rhythm Game',
         'Maze',
         'Fighting',
         'Puzzle',
-        'Light Gun Shooter',
+        // 'Light Gun Shooter',
         'Pinball',
-        'Beat \'em Up',
+        // 'Beat \'em Up',
         'Sport'
     ];
 
