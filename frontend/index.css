@@ -29,7 +29,8 @@
 }
 
 .red-orange-gradient-text {
-    background: linear-gradient(to bottom, #ffcc00, rgb(243, 91, 36), rgb(51, 0, 80)); /* Brighter yellow and deeper red */
+    background: linear-gradient(to bottom, #ffcc00, rgb(243, 91, 36), rgb(51, 0, 80));
+    /* Brighter yellow and deeper red */
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -42,15 +43,19 @@
     0% {
         background-position: 0% 50%;
     }
+
     25% {
         background-position: 100% 50%;
     }
+
     50% {
         background-position: 100% 100%;
     }
+
     75% {
         background-position: 0% 100%;
     }
+
     100% {
         background-position: 0% 50%;
     }
@@ -248,6 +253,66 @@
 
     .td-machine {
         width: 30%;
+    }
+
+    /* drop down madness engage */
+    .dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        border-radius: var(--border-radius);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 500px;
+        overflow: hidden;
+        display: none;
+        z-index: 10; /* Ensure it's above other content */
+        background-color: #333; /* or any color that fits your design */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* optional: adds depth */
+        border-radius: 5px; /* optional: for rounded corners */
+        padding: 0.5rem 0; /* optional: adds some space inside the dropdown */
+        /* can I center this */
+
+    
+    }
+    .hover-blue-gradient:hover {
+        @apply bg-gradient-to-b from-blue-400 to-blue-600;
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+    
+    .blinking-cursor {
+        animation: blink 1s step-start infinite;
+    }
+
+    .dropdown-active {
+        display: block;
+    }
+
+    .nav-item:hover .dropdown {
+        display: block;
+        /* center */
+
+    }
+
+    .dropdown-toggle {
+        /* Style for dropdown toggle button */
+        font-family: 'Press Start 2P', cursive;
+        /* ... other styling as needed */
+    }
+    
+    .dropdown-item {
+        padding: 10px 15px;
+        color: var(--text-color);
+        text-decoration: none;
+        display: block;
+        transition: background-color 0.2s;
+
+    }
+
+    .dropdown-item:hover {
+        background-color: var(--bg-accent);
     }
 
 
