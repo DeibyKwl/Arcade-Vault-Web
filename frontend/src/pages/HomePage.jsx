@@ -3,7 +3,7 @@ import AllStores from '../components/AllStores.jsx';
 import GamesByYear from '../components/GamesByYear.jsx';
 import AllGames from '../components/AllGames.jsx';
 import GamesByGenre from '../components/GamesByGenre.jsx';
-import StoreGames from '../components/StoreGames.jsx';
+import GamesByStore from '../components/GamesByStore.jsx';
 
 const HomePage = () => {
     const [activeTab, setActiveTab] = useState('stores');
@@ -19,7 +19,7 @@ const HomePage = () => {
             case 'gamesbygenre':
                 return <GamesByGenre />;
             case 'gamesbystore':
-                return <StoreGames />;
+                return <GamesByStore />;
             default:
                 return <AllStores />;
         }

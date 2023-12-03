@@ -58,7 +58,7 @@ const GamesByYear = () => {
                     <tbody>
                         {games.map((game, index) => (
                             <tr key={index}>
-                                <td>{game[1]}</td>
+                                <td>{game[0]}</td>
                                 <td>{selectedYear}</td>
                             </tr>
                         ))}

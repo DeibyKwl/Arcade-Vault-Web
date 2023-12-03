@@ -3,6 +3,7 @@ import axios from 'axios';
 import GameRow from '../rowcomponents/GameRow'; // Assuming rowcomponents is at the same level as components
 import GameTableHeader from '../rowcomponents/GameTableHeader'; // Assuming rowcomponents is at the same level as components
 
+
 const StoreGames = () => {
   const [storeName, setStoreName] = useState('');
   const [games, setGames] = useState([]);
