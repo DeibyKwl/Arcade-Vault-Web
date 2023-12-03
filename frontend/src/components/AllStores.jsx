@@ -38,34 +38,32 @@ const AllStores = () => {
     )
     : stores;
 
-  return (
-    <div>
-      {loading ? (
-        <p>Loading stores...</p>
-      ) : (
-        <div className='flex flex-col items-center'>
-          <h1>All Stores</h1>
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={handleSearchChange}
-            placeholder="Search stores..."
-            className="mb-4 text-black-900" // Ensure the class is applied correctly
-          />
-          <div className="scrollable-container w-full">
-            <table className="min-w-full fixed-layout-table">
-              <StoreTableHeader /> {/* Use the StoreTableHeader component */}
-              <tbody>
-                {filteredStores.map((store) => (
-                  <StoreRow key={store.store_id} store={store} /> // Use the StoreRow component for each store
-                ))}
-              </tbody>
-            </table>
+    return (
+      <div>
+        {loading ? <p>Loading stores...</p> : (
+          <div className='flex flex-col items-center'>
+            <h1>All Stores</h1>
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={handleSearchChange}
+              placeholder="Search stores..."
+              style={{ color: 'black' }}
+            />
+            <div className="scrollable-container w-full">
+              <table className="min-w-full fixed-layout-table">
+                <StoreTableHeader />
+                <tbody>
+                  {filteredStores.map((store) => (
+                    <StoreRow key={store.store_id} store={store} />
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default AllStores;
+        )}
+      </div>
+    );
+  };
+  
+  export default AllStores;

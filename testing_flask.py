@@ -54,7 +54,7 @@ def games_by_year():
     
     # preparing a cursor object
     cur = data_base.cursor()
-    cur.execute(f"SELECT game_name FROM games WHERE release_year = {year_value}")
+    cur.execute(f"SELECT game_id, game_name, game_cost, num_of_players, release_year, type_of_machine FROM games WHERE release_year = {year_value}")
     data = cur.fetchall()
     cur.close()
     return jsonify(data)

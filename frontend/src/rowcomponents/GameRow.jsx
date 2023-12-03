@@ -3,7 +3,7 @@ import React from 'react';
 const GameRow = ({ game }) => {
   return (
     <tr>
-      <td><h1 className="text-xs">{game.game_id}</h1></td>
+      <td className='pixel-font text-xs'>{game.game_id}</td>
       <td>{game.game_name}</td>
       <td>{game.game_cost}</td>
       <td>{game.num_of_players}</td>

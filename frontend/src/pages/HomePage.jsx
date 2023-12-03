@@ -14,7 +14,7 @@ const HomePage = () => {
                 return <AllGames />; // Use AllGames instead of Games
             case 'gamesbyyear':
                 return <GamesByYear />;
-            case 'gamesbygenre':
+            // case 'gamesbygenre':
                 // return <GamesByGenre />;
             
             default:

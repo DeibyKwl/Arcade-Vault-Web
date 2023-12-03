@@ -29,11 +29,14 @@
 }
 
 .scrollable-container {
-    max-height: 400px; /* Adjust to the height you want */
-    overflow-y: auto; /* This will create a vertical scrollbar if the content is taller than the container */
-    border: 1px solid #ccc; /* Optional: just for visual reference */
+    max-height: 400px;
+    /* Adjust to the height you want */
+    overflow-y: auto;
+    /* This will create a vertical scrollbar if the content is taller than the container */
+    border: 1px solid #ccc;
+    /* Optional: just for visual reference */
 }
-  
+
 
 .animate-blink {
     animation: blink 1.5s infinite;
@@ -84,13 +87,14 @@
         background-clip: text;
         color: transparent;
     }
-      
+
     .blue-gradient-text {
         background: linear-gradient(to bottom, #00c6ff, rgb(0, 0, 255));
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
     }
+
     .text-shadow-lg {
         text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #f00, 0 0 40px #f00, 0 0 50px #f00;
     }
@@ -122,7 +126,6 @@
     }
 
 
-
     .body {
         margin: 0;
         padding: 0;
@@ -131,9 +134,10 @@
         background: #310548;
         background-image: linear-gradient(rgba(157, 0, 255, 0.7) .1em, transparent .1em), linear-gradient(90deg, rgba(157, 0, 255, 0.7) .1em, transparent .1em);
         background-size: 3em 3em;
-        box-shadow: inset 0 0 2em 2em #310548; /* Adjust the color and spread to match your design */
-      }
-      
+        box-shadow: inset 0 0 2em 2em #310548;
+        /* Adjust the color and spread to match your design */
+    }
+
 
     .screen-effect {
         box-shadow:
@@ -160,11 +164,54 @@
     .fixed-layout-table {
         table-layout: fixed;
         width: 100%;
-      }
-    
-    .th-id { width: 10%; }
-    .th-name { width: 20%; }
-    .th-website { width: 35%; }
-    .th-city { width: 15%; }
-    .th-address { width: 25%; }
+    }
+
+
+    /* store spacing */
+    .th-id {
+        width: 10%;
+    }
+
+    .th-name {
+        width: 20%;
+    }
+
+    .th-website {
+        width: 35%;
+    }
+
+    .th-city {
+        width: 15%;
+    }
+
+    .th-address {
+        width: 25%;
+    }
+
+    /* game spacing */
+    .td-id {
+        width: 10%;
+    }
+
+    .td-name {
+        width: 30%;
+    }
+
+    .td-cost {
+        width: 10%;
+    }
+
+    .td-players {
+        width: 5%;
+    }
+
+    .td-releasedate {
+        width: 10%;
+    }
+
+    .td-machine {
+        width: 35%;
+    }
+
+
 }
