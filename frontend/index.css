@@ -16,30 +16,35 @@
 
 @keyframes blink {
     0% {
-        opacity: 1;
+        opacity: 0;
     }
 
     50% {
-        opacity: 0.5;
+        opacity: 1;
     }
 
     100% {
-        opacity: 1;
+        opacity: 0;
     }
 }
 
+/* ok maybe a little taller */
+.very-small-text {
+    font-size: 0.6rem;
+}
+
 .scrollable-container {
-    max-height: 400px;
+    max-height: 500px;
     /* Adjust to the height you want */
     overflow-y: auto;
     /* This will create a vertical scrollbar if the content is taller than the container */
-    border: 1px solid #ccc;
+    border: 1px solid #637902;
     /* Optional: just for visual reference */
 }
 
 
 .animate-blink {
-    animation: blink 1.5s infinite;
+    animation: blink 1.0s infinite;
 }
 
 @layer components {
@@ -89,7 +94,7 @@
     }
 
     .blue-gradient-text {
-        background: linear-gradient(to bottom, #00c6ff, rgb(0, 0, 255));
+        background: linear-gradient(to bottom, #00eeff, rgb(80, 80, 255));
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
@@ -177,7 +182,7 @@
     }
 
     .th-website {
-        width: 35%;
+        width: 40%;
     }
 
     .th-city {
@@ -194,7 +199,7 @@
     }
 
     .td-name {
-        width: 30%;
+        width: 25%;
     }
 
     .td-cost {
@@ -206,11 +211,11 @@
     }
 
     .td-releasedate {
-        width: 10%;
+        width: 15%;
     }
 
     .td-machine {
-        width: 35%;
+        width: 30%;
     }
 
 

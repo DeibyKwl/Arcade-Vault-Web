@@ -58,7 +58,7 @@ const GamesByGenre = () => {
                 </select>
             </div>
             <p className='pixel-font'>{games.length} game(s) found matching</p>
-            <button onClick={handleSearch} className='pixel-font mt-2'>Search</button>
+            <button onClick={handleSearch} className='pixel-font animate-blink red-orange-gradient-text'>Search</button>
 
             {loading && <p>Loading...</p>}
             {!loading && games.length > 0 && (

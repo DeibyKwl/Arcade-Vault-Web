@@ -45,7 +45,7 @@ const GamesByStore = () => {
       />
       <div className='p-2'>
         <div className="text-center"> {/* Add a parent container with text-center class */}
-          <button onClick={searchGamesByStoreName} className='pixel-font'>Search</button> {/* Remove text-center class from the button */}
+          <button onClick={searchGamesByStoreName} className='pixel-font animate-blink red-orange-gradient-text'> 🔎 Search </button> {/* Remove text-center class from the button */}
         </div>
         {isSearched && (
           games.length > 0 ? (

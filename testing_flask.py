@@ -202,8 +202,7 @@ def store_by_address():
 
     # preparing a cursor object 
     cur = data_base.cursor()
-    cur.execute(f"SELECT store_name FROM store\
-                WHERE address LIKE \'%{store_address}%\'")
+    cur.execute("SELECT * FROM store WHERE address LIKE %s", ('%' + store_address + '%',))
     
     data = cur.fetchall()
     cur.close()

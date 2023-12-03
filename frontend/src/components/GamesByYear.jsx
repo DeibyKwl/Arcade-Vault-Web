@@ -38,7 +38,7 @@ const GamesByYear = () => {
             {loading && <p>Loading...</p>}
 
             {selectedYear && games.length > 0 && (
-                <p>{games.length} game(s) found for the year {selectedYear}.</p>
+                <p className='pixel-font'>{games.length} game(s) found for the year {selectedYear}.</p>
             )}
 
             {selectedYear && games.length === 0 && !loading && (
@@ -58,8 +58,8 @@ const GamesByYear = () => {
                     <tbody>
                         {games.map((game, index) => (
                             <tr key={index}>
-                                <td>{game[0]}</td>
-                                <td>{selectedYear}</td>
+                                <td className='pixel-font'>{game[0]}</td>
+                                <td className='pixel-font'>{selectedYear}</td>
                             </tr>
                         ))}
                     </tbody>

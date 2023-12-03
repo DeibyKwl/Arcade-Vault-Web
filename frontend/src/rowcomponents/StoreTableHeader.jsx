@@ -5,11 +5,11 @@ const StoreTableHeader = () => {
     <thead>
       <tr>
         
-        <th className="text-xs th-id">ID</th>
-        <th className="th-name">Store Name</th>
-        <th className="th-website">Website</th>
-        <th className="th-city">City</th>
-        <th className="th-address">Address</th>
+        <th className="pixel-font text-xs th-id">ID</th>
+        <th className="pixel-font text-xs th-name">Store Name</th>
+        <th className="pixel-font text-xs th-website">Website</th>
+        <th className="pixel-font text-xs th-city">City</th>
+        <th className="pixel-font text-xs sth-address">Address</th>
       </tr>
     </thead>
   );
