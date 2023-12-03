@@ -3,6 +3,7 @@ from flask import Flask, jsonify, request
 import mysql.connector
 import json
 from flask_cors import CORS
+import random
 
 app = Flask(__name__)
 CORS(app)
@@ -355,14 +356,160 @@ def count_all_genres():
 # SECTION FOR INSERTING, UPDATING, AND DELETING ######################################################################## (NOT IMPLEMENTED YET)
 
 
+def generate_used_store_ids():
+    with open(config_file, "r") as f:
+        config = json.load(f)
+    connection_config = config["mysql"]
+    data_base = mysql.connector.connect(**connection_config)
+
+    # preparing a cursor object 
+    cur = data_base.cursor()
+    cur.execute(f"SELECT store_id FROM store")
+    data = cur.fetchall()
+    cur.close()
+    store_ids = [item[0] for item in data]
+    return store_ids
+
+def generate_used_user_ids():
+    with open(config_file, "r") as f:
+        config = json.load(f)
+    connection_config = config["mysql"]
+    data_base = mysql.connector.connect(**connection_config)
+
+    # preparing a cursor object 
+    cur = data_base.cursor()
+    cur.execute(f"SELECT user_id FROM user")
+    data = cur.fetchall()
+    cur.close()
+    user_ids = [item[0] for item in data]
+    return user_ids
+
+def generate_used_games_ids():
+    with open(config_file, "r") as f:
+        config = json.load(f)
+    connection_config = config["mysql"]
+    data_base = mysql.connector.connect(**connection_config)
+
+    # preparing a cursor object 
+    cur = data_base.cursor()
+    cur.execute(f"SELECT game_id FROM games")
+    data = cur.fetchall()
+    cur.close()
+    games_ids = [item[0] for item in data]
+    return games_ids
+
+# IDS to make sure they are not duplicates
+store_used_id = generate_used_store_ids()
+user_used_id = generate_used_user_ids()
+game_used_id = generate_used_games_ids()
+
+def generate_store_id():
+    global store_used_id
+    while True:
+        store_id = random.randint(1, 1000000)
+        if store_id not in store_used_id:
+            store_used_id.append(store_id)
+            return store_id
+    
+def generate_user_id():
+    global user_used_id
+    while True:
+        user_id = random.randint(1, 1000000)
+        if user_id not in user_used_id:
+            user_used_id.append(user_id)
+            return user_id
+    
+def generate_game_id():
+    global game_used_id
+    while True:
+        game_id = random.randint(1, 1000000)
+        if game_id not in game_used_id:
+            game_used_id.append(game_id)
+            return game_id
 
 
+@app.route('/add_store')
+def add_store():
+
+    store_id = generate_store_id()
+    store_name = request.args.get('store_name')
+    website = request.args.get('website')
+    city = request.args.get('city')
+    address = request.args.get('address')
+
+    #store_id = '15'
+    # store_name = 'holacomoestas'
+    # website = 'www.comoestas'
+    # city = 'muybien'
+    # address = 'very333bien'
+
+    user_id = generate_user_id()
+    user_first_name = request.args.get('user_first_name')
+    user_last_name = request.args.get('user_last_name')
+    user_email = request.args.get('user_email')
+
+    # user_id = 15
+    # user_first_name = 'jesus'
+    # user_last_name = 'sanches'
+    # user_email = 'jesusanche@gmail.com'
+
+    with open(config_file, "r") as f:
+        config = json.load(f)
+    connection_config = config["mysql"]
+    data_base = mysql.connector.connect(**connection_config)
+
+    # preparing a cursor object 
+    cur = data_base.cursor()
+
+    cur.execute(f"INSERT INTO store (store_id, store_name, website, city, address)\
+                VALUES (\'{store_id}\',\'{store_name}\',\'{website}\',\'{city}\',\'{address}\')")
+    
+
+    cur.execute(f"INSERT INTO user (user_id, store_id, first_name, last_name, email)\
+                VALUES (\'{user_id}\',\'{store_id}\',\'{user_first_name}\',\'{user_last_name}\',\'{user_email}\')")
+
+    
+    data_base.commit()
+    cur.close()
 
 
+@app.route('/add_game')
+def add_game():
+
+    game_id = generate_game_id()
+    store_id = request.args.get('store_id') # this will be getted by user clicked button
+    game_name = request.args.get('game_name')
+    release_year = request.args.get('release_year')
+    num_of_players = request.args.get('num_of_players')
+    type_of_machine = request.args.get('type_of_machine')
+    game_cost = request.args.get('game_cost')
 
 
+    # game_id = 15
+    # store_id = 15 # this will be getted by user clicked button
+    # game_name = 'new_game'
+    # release_year = 1990
+    # num_of_players = 5
+    # type_of_machine = 'boxing'
+    # game_cost = 0.20
 
+    with open(config_file, "r") as f:
+        config = json.load(f)
+    connection_config = config["mysql"]
+    data_base = mysql.connector.connect(**connection_config)
 
+    # preparing a cursor object 
+    cur = data_base.cursor()
+
+    cur.execute(f"INSERT INTO games (game_id, game_name, release_year, num_of_players, type_of_machine, game_cost)\
+                VALUES (\'{game_id}\',\'{game_name}\',\'{release_year}\',\'{num_of_players}\',\'{type_of_machine}\', \'{game_cost}\')")
+    
+    cur.execute(f"INSERT INTO store_game ( store_id, game_id)\
+                VALUES (\'{store_id}\',\'{game_id}\')")
+
+    
+    data_base.commit()
+    cur.close()
 
 
 
