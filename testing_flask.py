@@ -175,16 +175,19 @@ def games_by_store():
     connection_config = config["mysql"]
     data_base = mysql.connector.connect(**connection_config)
 
-    # preparing a cursor object 
     cur = data_base.cursor()
-    cur.execute(f"SELECT game_name FROM games\
-                INNER JOIN store_game ON store_game.game_id = games.game_id\
-                INNER JOIN store ON store.store_id = store_game.store_id\
-                WHERE store.store_name LIKE '%{store_name}%';")
-    
+    query = """
+        SELECT games.game_id, games.game_name, games.release_year, games.num_of_players, games.type_of_machine, games.game_cost
+        FROM games
+        INNER JOIN store_game ON store_game.game_id = games.game_id
+        INNER JOIN store ON store.store_id = store_game.store_id
+        WHERE store.store_name LIKE %s;
+    """
+    cur.execute(query, ('%' + store_name + '%',))
     data = cur.fetchall()
     cur.close()
     return jsonify(data)
+
 
 
 

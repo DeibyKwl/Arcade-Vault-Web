@@ -27,8 +27,8 @@ const GamesByYear = () => {
 
     return (
         <div className='flex flex-col items-center'>
-            <h1>Games By Year</h1>
-            <select value={selectedYear} className="bg-white text-black border-gray-300 pixel-font text-xs w-80 text-center" onChange={e => setSelectedYear(e.target.value)}>
+      <h1 className='pb-2'>Games By Year</h1>
+            <select value={selectedYear} className="p-2 bg-white text-black border-gray-300 pixel-font text-xs w-80 text-center" onChange={e => setSelectedYear(e.target.value)}>
                 <option value="">Select a year</option>
                 {years.map(year => (
                     <option key={year} value={year}>{year}</option>
@@ -45,7 +45,7 @@ const GamesByYear = () => {
                 <p>No games found for the year {selectedYear}.</p>
             )}
 
-            <div className="scrollable-container w-full">
+            <div className="scrollable-container w-full p-2">
                 <table className="min-w-full">
                     <thead>
                       

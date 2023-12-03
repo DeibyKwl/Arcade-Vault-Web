@@ -44,13 +44,13 @@ const GamesByGenre = () => {
         <div className='flex flex-col items-center'>
             <h1 className='pixel-font'>Games By Genre</h1>
             <div className="flex flex-col items-center gap-2">
-                <select value={primaryGenre} className="bg-white text-black border-gray-300 pixel-font text-xs w-80 text-center" onChange={e => setPrimaryGenre(e.target.value)}>
+                <select value={primaryGenre} className="p-2 bg-white text-black border-gray-300 pixel-font text-xs w-80 text-center" onChange={e => setPrimaryGenre(e.target.value)}>
                     <option value="">Select Primary Genre</option>
                     {genres.map(genre => (
                         <option key={genre} value={genre}>{genre}</option>
                     ))}
                 </select>
-                <select value={secondaryGenre} className="bg-white text-black border-gray-300 pixel-font text-xs w-80 text-center" onChange={e => setSecondaryGenre(e.target.value)}>
+                <select value={secondaryGenre} className="p-2 bg-white text-black border-gray-300 pixel-font text-xs w-80 text-center" onChange={e => setSecondaryGenre(e.target.value)}>
                     <option value="">(none)</option>
                     {genres.map(genre => (
                         <option key={genre} value={genre}>{genre}</option>
@@ -67,10 +67,10 @@ const GamesByGenre = () => {
                     <table className="min-w-full">
                         <thead>
                             <tr>
-                                <th className="text-center pixel-font">Game Name</th>
+                                <th className="text-center text-xl pixel-font">Game Name</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody className='text-center'>
                             {games.map((game, index) => (
                                 <tr key={index}>
                                     <td className="pixel-font">{game[0]}</td>

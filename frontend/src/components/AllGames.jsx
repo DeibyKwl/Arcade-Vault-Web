@@ -43,14 +43,13 @@ const AllGames = () => {
                 <p>Loading games...</p>
             ) : (
                 <div className='flex flex-col items-center'>
-                    <h1 >All Games</h1>
+      <h1 className='pb-2'>All Games</h1>
                     <input
                         type="text"
                         value={searchTerm}
                         onChange={handleSearchChange}
                         placeholder="Search games..."
-                        style={{ color: 'black' }} // Set the text color to black
-                    />
+                        className="p-2 bg-white text-black border-gray-300 pixel-font text-xs w-80 text-center"                    />
                     <div className="scrollable-container w-full">
 
                         <table className="min-w-full">
