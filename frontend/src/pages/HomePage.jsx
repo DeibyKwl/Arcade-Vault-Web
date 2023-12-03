@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import AllStores from '../components/AllStores.jsx'; // Import AllStores directly
+import AllStores from '../components/AllStores.jsx';
 import GamesByYear from '../components/GamesByYear.jsx';
-import AllGames from '../components/AllGames.jsx'; // Import AllGames directly
+import AllGames from '../components/AllGames.jsx';
 import GamesByGenre from '../components/GamesByGenre.jsx';
+import StoreGames from '../components/StoreGames.jsx';
 
 const HomePage = () => {
     const [activeTab, setActiveTab] = useState('stores');
@@ -10,17 +11,22 @@ const HomePage = () => {
     const renderComponent = () => {
         switch (activeTab) {
             case 'stores':
-                return <AllStores />; // Use AllStores instead of Stores
+                return <AllStores />;
             case 'games':
-                return <AllGames />; // Use AllGames instead of Games
+                return <AllGames />;
             case 'gamesbyyear':
                 return <GamesByYear />;
             case 'gamesbygenre':
                 return <GamesByGenre />;
-            
+            case 'gamesbystore':
+                return <StoreGames />;
             default:
-                return <AllStores />; // Default to AllStores if needed
+                return <AllStores />;
         }
+    };
+
+    const handleTabClick = (tab) => {
+        setActiveTab(tab);
     };
 
     const handleTabClick = (tab) => {
@@ -45,7 +51,7 @@ const HomePage = () => {
                     </div>
 
                     <nav className="flex justify-center space-x-4 p-4 text-white">
-                        {['stores', 'games', 'gamesbyyear', 'gamesbygenre'].map((tab) => (
+                        {['stores', 'games', 'gamesbyyear', 'gamesbygenre', 'gamesbystore'].map((tab) => (
                             <h1 key={tab} className={`arcade-font  ${activeTab === tab ? 'blue-gradient-text' : ''}`}>
                                 <button onClick={() => handleTabClick(tab)}>
                                     {activeTab === tab ? '>' : ''} {tab.replace(/([A-Z])/g, ' $1')}
