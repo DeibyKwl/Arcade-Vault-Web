@@ -50,15 +50,15 @@ const GamesByCost = () => {
                 <table className="min-w-full">
                     <thead>
                         <tr>
-                            <th className='pixel-font'>Game Name</th>
-                            <th className='pixel-font'>Cost</th>
+                            <th className='pixel-font text-center text-lg'>Game Name</th>
+                            <th className='pixel-font text-center text-lg'>Cost</th>
                         </tr>
                     </thead>
                     <tbody>
                         {games.map((game, index) => (
                             <tr key={index}>
-                                <td className='pixel-font'>{game[0]}</td>{/* game name */}
-                                <td className='pixel-font'>{`$${parseFloat(game[1]).toFixed(2)}`}</td>{/* game cost */}
+                                <td className='pixel-font text-center'>{game[0]}</td>{/* game name */}
+                                <td className='pixel-font text-center'>{`$${parseFloat(game[1]).toFixed(2)}`}</td>{/* game cost */}
                             </tr>
                         ))}
                     </tbody>
