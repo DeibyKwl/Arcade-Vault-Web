@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import AllStores from '../components/AllStores.jsx'; // Import AllStores directly
 import GamesByYear from '../components/GamesByYear.jsx';
 import AllGames from '../components/AllGames.jsx'; // Import AllGames directly
+import StoreGames from '../components/StoreGames.jsx'
 
 const HomePage = () => {
     const [activeTab, setActiveTab] = useState('stores');
@@ -16,6 +17,8 @@ const HomePage = () => {
                 return <GamesByYear />;
             // case 'gamesbygenre':
                 // return <GamesByGenre />;
+            case 'gamesbystore':
+                return <StoreGames />;
             
             default:
                 return <AllStores />; // Default to AllStores if needed
@@ -44,7 +47,7 @@ const HomePage = () => {
                     </div>
 
                     <nav className="flex justify-center space-x-4 p-4 text-white">
-                        {['stores', 'games', 'gamesbyyear', 'gamesbygenre'].map((tab) => (
+                        {['stores', 'games', 'gamesbyyear', 'gamesbygenre', 'gamesbystore'].map((tab) => (
                             <h1 key={tab} className={`arcade-font  ${activeTab === tab ? 'blue-gradient-text' : ''}`}>
                                 <button onClick={() => handleTabClick(tab)}>
                                     {activeTab === tab ? '>' : ''} {tab.replace(/([A-Z])/g, ' $1')}
