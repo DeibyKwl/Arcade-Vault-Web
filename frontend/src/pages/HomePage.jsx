@@ -6,6 +6,7 @@ import GamesByGenre from '../components/GamesByGenre.jsx';
 import GamesByStore from '../components/GamesByStore.jsx';
 import StoreByAddress from '../components/StoreByAddress.jsx';
 import StoreByCity from '../components/StoreByCity.jsx';
+import GamesByCost from '../components/GamesByCost.jsx';
 
 const HomePage = () => {
     const [activeTab, setActiveTab] = useState('stores');
@@ -22,12 +23,15 @@ const HomePage = () => {
                 return <GamesByGenre />;
             case 'gamesbystore':
                 return <GamesByStore />;
+            case 'gamesbycost':
+                return <GamesByCost />;
             case 'storebyaddress':
                 return <StoreByAddress />;
             case 'storebycity':
                 return <StoreByCity />;
             default:
                 return <AllStores />;
+
         }
     };
 
@@ -48,20 +52,20 @@ const HomePage = () => {
                         <h2 className="arcade-font text-lg text-yellow-500">HI-SCORE-29500</h2>
 
                         {/* Arcade Vault in the center */}
-                        <h1 className="arcade-font red-orange-gradient-text text-2xl px-8 ">Arcade Vault</h1>
+                        <h1 className="arcade-font red-orange-gradient-text text-2xl px-16 pb-6 ">Arcade Vault</h1>
 
                         {/* credits on the right */}
                         <h2 className="arcade-font text-lg text-yellow-500 outline-text">  CREDIT 0</h2>
                     </div>
 
-                    <nav className="flex justify-center space-x-4 p-4 text-green-200 text-shadow-lg">
-                        {['stores', 'games', 'gamesbyyear', 'gamesbygenre', 'gamesbystore', 'storebyaddress', 'storebycity'].map((tab) => (
+                    <nav className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-10 text-green-200 text-shadow-lg">
+                        {['stores', 'games', 'gamesbyyear', 'gamesbygenre', 'gamesbystore', 'gamesbycost', 'storebyaddress', 'storebycity'].map((tab) => (
                             <h1 key={tab} className={`arcade-font text-sm ${activeTab === tab ? 'blue-gradient-text' : ''}`}>
                                 <button onClick={() => handleTabClick(tab)}>
                                     {activeTab === tab && (
                                         <span className="animate-blink">{'>'}</span>
                                     )}
-                                    {' '} {/* Adding a space for visual separation */}
+                                    {''} {/* Adding a space for visual separation */}
                                     {tab.replace(/([A-Z])/g, ' $1')}
                                 </button>
                             </h1>

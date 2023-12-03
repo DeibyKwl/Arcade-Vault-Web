@@ -46,7 +46,7 @@ const StoreByAddress = () => {
                 className="p-2 bg-white text-black border-gray-300 pixel-font text-xs w-80 text-center"
 
             />
-            <button className="pixel-font" onClick={searchStoreByAddress}>Search</button>
+          <button onClick={searchStoreByAddress} className='pixel-font animate-blink-slow red-orange-gradient-text'> 🔎 Search </button> {/* Remove text-center class from the button */}
 
             {isLoading && <p>Loading...</p>}
             {error && <p>{error}</p>}

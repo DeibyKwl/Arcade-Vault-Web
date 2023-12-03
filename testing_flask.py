@@ -74,7 +74,9 @@ def game_by_cost():
     cur = data_base.cursor()
     cur.execute("SELECT game_name, game_cost from games\
                 INNER JOIN store_game ON store_game.game_id = games.game_id\
-                WHERE game_cost <= %s", (cost_value))
+                WHERE game_cost <= %s", (cost_value,))
+    
+    # alex note: I added a comma after cost_value because it needs to be a tuple to return name and cost
     
     data = cur.fetchall()
     cur.close()
