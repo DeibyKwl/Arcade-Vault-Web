@@ -5,6 +5,7 @@ import AllGames from '../components/AllGames.jsx';
 import GamesByGenre from '../components/GamesByGenre.jsx';
 import GamesByStore from '../components/GamesByStore.jsx';
 import StoreByAddress from '../components/StoreByAddress.jsx';
+import StoreByCity from '../components/StoreByCity.jsx';
 
 const HomePage = () => {
     const [activeTab, setActiveTab] = useState('stores');
@@ -23,6 +24,8 @@ const HomePage = () => {
                 return <GamesByStore />;
             case 'storebyaddress':
                 return <StoreByAddress />;
+            case 'storebycity':
+                return <StoreByCity />;
             default:
                 return <AllStores />;
         }
@@ -52,7 +55,7 @@ const HomePage = () => {
                     </div>
 
                     <nav className="flex justify-center space-x-4 p-4 text-green-200 text-shadow-lg">
-                        {['stores', 'games', 'gamesbyyear', 'gamesbygenre', 'gamesbystore', 'storebyaddress'].map((tab) => (
+                        {['stores', 'games', 'gamesbyyear', 'gamesbygenre', 'gamesbystore', 'storebyaddress', 'storebycity'].map((tab) => (
                             <h1 key={tab} className={`arcade-font text-sm ${activeTab === tab ? 'blue-gradient-text' : ''}`}>
                                 <button onClick={() => handleTabClick(tab)}>
                                     {activeTab === tab && (

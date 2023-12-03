@@ -218,20 +218,19 @@ def store_by_address():
 @app.route('/store_by_city')
 def store_by_city():
     store_city = request.args.get('store_city')
-    store_city = 'sac'
+    # Ensure store_city is being used in the query and not hardcoded
     with open(config_file, "r") as f:
         config = json.load(f)
     connection_config = config["mysql"]
     data_base = mysql.connector.connect(**connection_config)
 
-    # preparing a cursor object 
     cur = data_base.cursor()
-    cur.execute(f"SELECT store_name FROM store\
-                WHERE city LIKE \'%{store_city}%\'")
+    cur.execute("SELECT store_id, store_name, website, city, address FROM store WHERE city LIKE %s", ('%' + store_city + '%',))
     
     data = cur.fetchall()
     cur.close()
     return jsonify(data)
+
 
 
 

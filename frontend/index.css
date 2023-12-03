@@ -28,6 +28,34 @@
     }
 }
 
+.red-orange-gradient-text {
+    background: linear-gradient(to bottom, #ffcc00, rgb(243, 91, 36), rgb(51, 0, 80)); /* Brighter yellow and deeper red */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 200% 200%;
+    animation: moveGradient 3s linear infinite;
+    text-shadow: #302929 0px 0px 12px;
+}
+
+@keyframes moveGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    25% {
+        background-position: 100% 50%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    75% {
+        background-position: 0% 100%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 /* ok maybe a little taller */
 .very-small-text {
     font-size: 0.6rem;
@@ -45,6 +73,10 @@
 
 .animate-blink {
     animation: blink 1.0s infinite;
+}
+
+.animate-blink-slow {
+    animation: blink 2.0s infinite;
 }
 
 @layer components {
@@ -86,12 +118,12 @@
         /* Additional styles for the active tab */
     }
 
-    .red-orange-gradient-text {
+    /* .red-orange-gradient-text {
         background: linear-gradient(to bottom, #ffc800, rgb(150, 36, 5));
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
-    }
+    } */
 
     .blue-gradient-text {
         background: linear-gradient(to bottom, #00eeff, rgb(80, 80, 255));
