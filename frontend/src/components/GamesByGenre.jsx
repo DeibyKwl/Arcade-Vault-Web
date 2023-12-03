@@ -24,9 +24,14 @@ const GamesByGenre = () => {
     const handleSearch = async () => {
         setLoading(true);
         try {
-            const genreQuery = secondaryGenre ? `${primaryGenre}+${secondaryGenre}` : primaryGenre;
-            const encodedQuery = encodeURIComponent(genreQuery);
-            const response = await axios.get(`http://localhost:5000/game_by_genre?genre_value=${encodedQuery}`);
+            let genreQuery = primaryGenre;
+            if (primaryGenre && secondaryGenre && primaryGenre !== secondaryGenre) {
+                genreQuery += ` ${secondaryGenre}`;
+            }
+
+            const response = await axios.get('http://localhost:5000/game_by_genre', {
+                params: { genre_value: genreQuery }
+            });
             setGames(response.data);
         } catch (error) {
             console.error('Error fetching games: ', error);
@@ -52,19 +57,27 @@ const GamesByGenre = () => {
                     ))}
                 </select>
             </div>
-            <p className='pixel-font'>{games.length} game(s) found.</p>
+            <p className='pixel-font'>{games.length} game(s) found matching</p>
             <button onClick={handleSearch} className='pixel-font mt-2'>Search</button>
 
             {loading && <p>Loading...</p>}
-
             {!loading && games.length > 0 && (
+
                 <div className="scrollable-container w-full">
-                    <p className='pixel-font'>{games.length} game(s) found.</p>
-                    <ul>
-                        {games.map((game, index) => (
-                            <li key={index} className='pixel-font'>{game[0]}</li> // Accessing the game name at index 0
-                        ))}
-                    </ul>
+                    <table className="min-w-full">
+                        <thead>
+                            <tr>
+                                <th className="text-center pixel-font">Game Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {games.map((game, index) => (
+                                <tr key={index}>
+                                    <td className="pixel-font">{game[0]}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             )}
 
