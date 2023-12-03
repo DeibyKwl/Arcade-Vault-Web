@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import AllStores from '../components/AllStores.jsx'; // Import AllStores directly
 import GamesByYear from '../components/GamesByYear.jsx';
 import AllGames from '../components/AllGames.jsx'; // Import AllGames directly
+import GamesByGenre from '../components/GamesByGenre.jsx';
 
 const HomePage = () => {
     const [activeTab, setActiveTab] = useState('stores');
@@ -14,8 +15,8 @@ const HomePage = () => {
                 return <AllGames />; // Use AllGames instead of Games
             case 'gamesbyyear':
                 return <GamesByYear />;
-            // case 'gamesbygenre':
-                // return <GamesByGenre />;
+            case 'gamesbygenre':
+                return <GamesByGenre />;
             
             default:
                 return <AllStores />; // Default to AllStores if needed
