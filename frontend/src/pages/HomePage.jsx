@@ -11,6 +11,9 @@ import GamesByTypeOfMachine from '../components/GamesByTypeOfMachine.jsx';
 import GamesByNumOfPlayers from '../components/GamesByNumOfPlayers.jsx';
 import UpdateStore from '../components/UpdateStore.jsx';
 import UpdateGame from '../components/UpdateGame.jsx';
+import AddGame from '../components/AddGame.jsx';
+// import AddStore from '../components/AddStore.jsx';
+
 
 const HomePage = () => {
     const [activeTab, setActiveTab] = useState('stores');
@@ -41,6 +44,10 @@ const HomePage = () => {
                 return <UpdateStore />;
             case 'updategame':
                 return <UpdateGame />;
+            case 'addgame':
+                return <AddGame />;
+            // case 'addstore':
+            //     return <AddStore />;
             default:
                 return <AllStores />;
         }
@@ -104,6 +111,8 @@ function Navbar({ onSelect }) {
                     <DropdownMenu>
                         <DropdownItem onSelect={() => onSelect('updatestore')}>Update Stores</DropdownItem>
                         <DropdownItem onSelect={() => onSelect('updategame')}>Update Games</DropdownItem>
+                        <DropdownItem onSelect={() => onSelect('addgame')}>Add Games</DropdownItem>
+                        {/* <DropdownItem onSelect={() => onSelect('addstore')}>Add Stores</DropdownItem> */}
                     </DropdownMenu>
                 </DropdownNavItem>
 
@@ -165,7 +174,8 @@ function DropdownItem({ onSelect, closeDropdown, children }) {
             }}
         >
             {isHovering && (
-                <span className="blinking-cursor text-green-400 absolute left-0 inset-y-0 flex items-center pl-2">{'>'}</span>            )}
+                <span className="blinking-cursor text-green-400 absolute left-0 inset-y-0 flex items-center pl-2">{'>'}</span>
+                )}
             <span className={`hover-blue-gradient ${isHovering ? 'blue-gradient-text' : ''}`}>
                 {children}
             </span>
@@ -175,4 +185,3 @@ function DropdownItem({ onSelect, closeDropdown, children }) {
 
 
 export default HomePage;
-

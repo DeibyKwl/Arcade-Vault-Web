@@ -550,6 +550,7 @@ def add_game():
     num_of_players = request.args.get('num_of_players')
     type_of_machine = request.args.get('type_of_machine')
     game_cost = request.args.get('game_cost')
+    game_genre = request.args.get('game_genre')
 
 
     # game_id = 15
@@ -573,10 +574,14 @@ def add_game():
     
     cur.execute(f"INSERT INTO store_game ( store_id, game_id)\
                 VALUES (\'{store_id}\',\'{game_id}\')")
+    
+    cur.execute(f"INSERT INTO game_genre ( game_id, genre)\
+                VALUES (\'{game_id}\',\'{game_genre}\')")
 
     
     data_base.commit()
     cur.close()
+    
 
 # If user add a game and put a year < 1970 then will rollback
 def trigger_for_add():
