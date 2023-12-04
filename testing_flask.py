@@ -430,49 +430,49 @@ def generate_game_id():
             return game_id
 
 
-@app.route('/add_store')
+@app.route('/add_store', methods=['POST'])
 def add_store():
+    try:
+        data = request.json
+        # logging.debug("Received store data: %s", data)
 
-    store_id = generate_store_id()
-    store_name = request.args.get('store_name')
-    website = request.args.get('website')
-    city = request.args.get('city')
-    address = request.args.get('address')
+        store_id = generate_store_id()
+        store_name = data.get('store_name')
+        website = data.get('website')
+        city = data.get('city')
+        address = data.get('address')
 
-    #store_id = '15'
-    # store_name = 'holacomoestas'
-    # website = 'www.comoestas'
-    # city = 'muybien'
-    # address = 'very333bien'
+        user_id = generate_user_id()
+        user_first_name = data.get('user_first_name')
+        user_last_name = data.get('user_last_name')
+        user_email = data.get('user_email')
 
-    user_id = generate_user_id()
-    user_first_name = request.args.get('user_first_name')
-    user_last_name = request.args.get('user_last_name')
-    user_email = request.args.get('user_email')
+        with open(config_file, "r") as f:
+            config = json.load(f)
+        connection_config = config["mysql"]
 
-    # user_id = 15
-    # user_first_name = 'jesus'
-    # user_last_name = 'sanches'
-    # user_email = 'jesusanche@gmail.com'
+        with mysql.connector.connect(**connection_config) as data_base:
+            with data_base.cursor() as cur:
+                logging.debug("Inserting into store table...")
+                cur.execute("""
+                    INSERT INTO store (store_id, store_name, website, city, address)
+                    VALUES (%s, %s, %s, %s, %s)
+                    """, (store_id, store_name, website, city, address))
 
-    with open(config_file, "r") as f:
-        config = json.load(f)
-    connection_config = config["mysql"]
-    data_base = mysql.connector.connect(**connection_config)
+                logging.debug("Inserting into user table...")
+                cur.execute("""
+                    INSERT INTO user (user_id, store_id, first_name, last_name, email)
+                    VALUES (%s, %s, %s, %s, %s)
+                    """, (user_id, store_id, user_first_name, user_last_name, user_email))
 
-    # preparing a cursor object 
-    cur = data_base.cursor()
+                data_base.commit()
 
-    cur.execute(f"INSERT INTO store (store_id, store_name, website, city, address)\
-                VALUES (\'{store_id}\',\'{store_name}\',\'{website}\',\'{city}\',\'{address}\')")
-    
+        return jsonify({'message': 'Store added successfully'}), 200
 
-    cur.execute(f"INSERT INTO user (user_id, store_id, first_name, last_name, email)\
-                VALUES (\'{user_id}\',\'{store_id}\',\'{user_first_name}\',\'{user_last_name}\',\'{user_email}\')")
+    except Exception as e:
+        logging.error("Error in add_store: %s", e)
+        return jsonify({'error': str(e)}), 500
 
-    
-    data_base.commit()
-    cur.close()
 
 @app.route('/update_store', methods=['PUT'])
 def update_store():
@@ -546,7 +546,7 @@ def update_game():
 def add_game():
     try:
         data = request.json
-        logging.debug("Received data: %s", data)
+        # logging.debug("Received data: %s", data)
 
         game_id = generate_game_id()
         store_id = data['store_id']
@@ -563,19 +563,19 @@ def add_game():
 
         with mysql.connector.connect(**connection_config) as data_base:
             with data_base.cursor() as cur:
-                logging.debug("Inserting into games table...")
+                # logging.debug("Inserting into games table...")
                 cur.execute("""
                     INSERT INTO games (game_id, game_name, release_year, num_of_players, type_of_machine, game_cost)
                     VALUES (%s, %s, %s, %s, %s, %s)
                     """, (game_id, game_name, release_year, num_of_players, type_of_machine, game_cost))
                 
-                logging.debug("Inserting into store_game table...")
+                # logging.debug("Inserting into store_game table...")
                 cur.execute("""
                     INSERT INTO store_game (store_id, game_id)
                     VALUES (%s, %s)
                     """, (store_id, game_id))
                 
-                logging.debug("Inserting into game_genre table...")
+                # logging.debug("Inserting into game_genre table...")
                 cur.execute("""
                     INSERT INTO game_genre (game_id, genre)
                     VALUES (%s, %s)

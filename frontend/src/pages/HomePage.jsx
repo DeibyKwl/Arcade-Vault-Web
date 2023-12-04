@@ -12,7 +12,7 @@ import GamesByNumOfPlayers from '../components/GamesByNumOfPlayers.jsx';
 import UpdateStore from '../components/UpdateStore.jsx';
 import UpdateGame from '../components/UpdateGame.jsx';
 import AddGame from '../components/AddGame.jsx';
-// import AddStore from '../components/AddStore.jsx';
+import AddStore from '../components/AddStore.jsx';
 
 
 const HomePage = () => {
@@ -46,8 +46,8 @@ const HomePage = () => {
                 return <UpdateGame />;
             case 'addgame':
                 return <AddGame />;
-            // case 'addstore':
-            //     return <AddStore />;
+            case 'addstore':
+                return <AddStore />;
             default:
                 return <AllStores />;
         }
@@ -112,7 +112,7 @@ function Navbar({ onSelect }) {
                         <DropdownItem onSelect={() => onSelect('updatestore')}>Update Stores</DropdownItem>
                         <DropdownItem onSelect={() => onSelect('updategame')}>Update Games</DropdownItem>
                         <DropdownItem onSelect={() => onSelect('addgame')}>Add Games</DropdownItem>
-                        {/* <DropdownItem onSelect={() => onSelect('addstore')}>Add Stores</DropdownItem> */}
+                        <DropdownItem onSelect={() => onSelect('addstore')}>Add Stores</DropdownItem>
                     </DropdownMenu>
                 </DropdownNavItem>
 
