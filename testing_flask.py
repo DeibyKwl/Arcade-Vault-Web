@@ -504,6 +504,41 @@ def update_store():
     finally:
         if data_base.is_connected():
             data_base.close()
+    
+
+# this should look a lot like update_store but for the game table
+@app.route('/update_game', methods=['PUT'])
+def update_game():
+    with open(config_file, "r") as f:
+        config = json.load(f)
+    connection_config = config["mysql"]
+    data_base = mysql.connector.connect(**connection_config)
+
+    data = request.json
+    game_id = data.get('game_id')
+    game_name = data.get('game_name')
+    release_year = data.get('release_year')
+    num_of_players = data.get('num_of_players')
+    type_of_machine = data.get('type_of_machine')
+    game_cost = data.get('game_cost')
+
+    try:
+        cur = data_base.cursor()
+        update_query = """
+        UPDATE games
+        SET game_name = %s, release_year = %s, num_of_players = %s, type_of_machine = %s, game_cost = %s
+        WHERE game_id = %s
+        """
+        cur.execute(update_query, (game_name, release_year, num_of_players, type_of_machine, game_cost, game_id))
+        data_base.commit()
+        cur.close()
+        return jsonify({"success": True, "message": "Game updated successfully"}), 200
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
+    finally:
+        if data_base.is_connected():
+            data_base.close()
+
 
 @app.route('/add_game')
 def add_game():

@@ -5,12 +5,12 @@ const GameTableHeader = () => {
   return (
     <thead>
       <tr>
-        <th className='pixel-font text-xs'>ID</th>
-        <th className='pixel-font text-xs'>Name</th>
-        <th className='pixel-font text-xs px-2 text-center'>Cost</th>
-        <th className='pixel-font text-xs'>Players</th>
-        <th className='pixel-font text-xs'>Release Date</th>
-        <th className='pixel-font text-xs'>Machine Type</th>
+        <th className="pixel-font text-xs" style={{ width: '10%' }}>ID</th>
+        <th className="pixel-font text-xs" style={{ width: '20%' }}>Name</th>
+        <th className="pixel-font text-xs" style={{ width: '20%' }}>Website</th>
+        <th className="pixel-font text-xs" style={{ width: '20%' }}>City</th>
+        <th className="pixel-font text-xs" style={{ width: '20%' }}>Address</th>
+        <th className="pixel-font text-xs" style={{ width: '10%' }}>Select</th>
       </tr>
     </thead>
   );

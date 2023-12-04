@@ -74,14 +74,14 @@ const UpdateStore = () => {
     return (
         <div>
             <div className='flex flex-col items-center p-2'>
-            <h2 className="text-center">Update Store</h2>
-            <input
-                type="text"
-                placeholder="Search stores..."
-                value={searchTerm}
-                onChange={handleSearchChange}
-                className="p-2 bg-white text-black border-gray-300 pixel-font text-xs w-60 text-center"
-            />
+                <h2 className="text-center">Update Store</h2>
+                <input
+                    type="text"
+                    placeholder="Search stores..."
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    className="p-2 bg-white text-black border-gray-300 pixel-font text-xs w-60 text-center"
+                />
             </div>
 
             <div className='scrollable-container' style={{ maxHeight: '40vh', overflowY: 'auto' }}>
@@ -107,33 +107,31 @@ const UpdateStore = () => {
             </div>
             {editMode && (
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="flex">
-                        <div className="w-50%">
-                            <label className='block pixel-font text-xs mb-2 px-2'>
+                    <div className="flex flex-wrap">
+                        <div className="w-1/2">
+                            <label className='block pixel-font text-xs mb-2 p-2'>
                                 Store Name:
                                 <input type="text" name="store_name" value={storeDetails.store_name} onChange={handleInputChange} className="mt-1 block w-full p-2 bg-white text-black border border-gray-300 pixel-font text-xs" />
                             </label>
                         </div>
-                        <div className="w-50%">
-                            <label className='block pixel-font text-xs mb-2'>
+                        <div className="w-1/2">
+                            <label className='block pixel-font text-xs mb-2 p-2'>
                                 Website:
                                 <input type="text" name="website" value={storeDetails.website} onChange={handleInputChange} className="mt-1 block w-full p-2 bg-white text-black border border-gray-300 pixel-font text-xs" />
                             </label>
                         </div>
-                    </div>
-                    {/* <div className="flex"> */}
-                        <div className="w-50%">
+                        <div className="w-1/2">
                             <label className='block pixel-font text-xs mb-2 px-2'>
                                 City:
                                 <input type="text" name="city" value={storeDetails.city} onChange={handleInputChange} className="mt-1 block w-full p-2 bg-white text-black border border-gray-300 pixel-font text-xs" />
                             </label>
                         </div>
-                        <div className="w-50%">
-                            <label className='block pixel-font text-xs mb-2'>
+                        <div className="w-1/2">
+                            <label className='block pixel-font text-xs mb-2 px-2'>
                                 Address:
                                 <input type="text" name="address" value={storeDetails.address} onChange={handleInputChange} className="mt-1 block w-full p-2 bg-white text-black border border-gray-300 pixel-font text-xs" />
                             </label>
-                        {/* </div> */}
+                        </div>
                     </div>
 
                     <button className='block w-full pixel-font text-sm hover:text-blue-400 py-2' type="submit">Submit Update</button>

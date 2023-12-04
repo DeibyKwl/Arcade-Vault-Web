@@ -10,6 +10,7 @@ import GamesByCost from '../components/GamesByCost.jsx';
 import GamesByTypeOfMachine from '../components/GamesByTypeOfMachine.jsx';
 import GamesByNumOfPlayers from '../components/GamesByNumOfPlayers.jsx';
 import UpdateStore from '../components/UpdateStore.jsx';
+import UpdateGame from '../components/UpdateGame.jsx';
 
 const HomePage = () => {
     const [activeTab, setActiveTab] = useState('stores');
@@ -38,6 +39,8 @@ const HomePage = () => {
                 return <GamesByNumOfPlayers />;
             case 'updatestore':
                 return <UpdateStore />;
+            case 'updategame':
+                return <UpdateGame />;
             default:
                 return <AllStores />;
         }
@@ -71,6 +74,7 @@ const HomePage = () => {
     );
 };
 
+
 function Navbar({ onSelect }) {
     return (
         <div className="flex justify-center  w-full"> {/* Add justify-center class */}
@@ -99,6 +103,7 @@ function Navbar({ onSelect }) {
                 <DropdownNavItem title="Modify" onSelect={onSelect}>
                     <DropdownMenu>
                         <DropdownItem onSelect={() => onSelect('updatestore')}>Update Stores</DropdownItem>
+                        <DropdownItem onSelect={() => onSelect('updategame')}>Update Games</DropdownItem>
                     </DropdownMenu>
                 </DropdownNavItem>
 
@@ -160,7 +165,7 @@ function DropdownItem({ onSelect, closeDropdown, children }) {
             }}
         >
             {isHovering && (
-                <span className="blinking-cursor text-white absolute left-0 inset-y-0 flex items-center pl-2">{'>'}</span>            )}
+                <span className="blinking-cursor text-green-400 absolute left-0 inset-y-0 flex items-center pl-2">{'>'}</span>            )}
             <span className={`hover-blue-gradient ${isHovering ? 'blue-gradient-text' : ''}`}>
                 {children}
             </span>
