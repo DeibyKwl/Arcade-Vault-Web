@@ -543,6 +543,53 @@ def add_game():
     data_base.commit()
     cur.close()
 
+# If user add a game and put a year < 1970 then will rollback
+def trigger_for_add():
+    with open(config_file, "r") as f:
+        config = json.load(f)
+    connection_config = config["mysql"]
+    data_base = mysql.connector.connect(**connection_config)
+
+    # preparing a cursor object 
+    cur = data_base.cursor()
+
+    cur.execute(f"CREATE TRIGGER IF NOT EXISTS before_game_insert\
+                BEFORE INSERT ON games\
+                FOR EACH ROW\
+                BEGIN\
+                    IF NEW.release_year < 1970 OR NEW.release_year > 2023 THEN\
+                        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Release year must be between 1970 and 2023';\
+                    END IF;\
+                END;")
+
+    data_base.commit()
+    cur.close()
+
+# If user update a game and put a year < 1970 then will rollback
+def trigger_for_update():
+    with open(config_file, "r") as f:
+        config = json.load(f)
+    connection_config = config["mysql"]
+    data_base = mysql.connector.connect(**connection_config)
+
+    # preparing a cursor object 
+    cur = data_base.cursor()
+
+    cur.execute(f"CREATE TRIGGER IF NOT EXISTS before_game_update\
+                BEFORE UPDATE ON games\
+                FOR EACH ROW\
+                BEGIN\
+                    IF NEW.release_year < 1970 OR NEW.release_year > 2023 THEN\
+                        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Release year must be between 1970 and 2023';\
+                    END IF;\
+                END;")
+
+    data_base.commit()
+    cur.close()
+
+# Create trigger if it does not exist when running backend code.
+trigger_for_add()
+trigger_for_update()
 
 
 if __name__ == '__main__':
