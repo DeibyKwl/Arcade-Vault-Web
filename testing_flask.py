@@ -4,6 +4,8 @@ import mysql.connector
 import json
 from flask_cors import CORS
 import random
+import logging
+logging.basicConfig(level=logging.DEBUG)
 
 app = Flask(__name__)
 CORS(app)
@@ -540,48 +542,53 @@ def update_game():
             data_base.close()
 
 
-@app.route('/add_game')
+@app.route('/add_game', methods=['POST'])
 def add_game():
+    try:
+        data = request.json
+        logging.debug("Received data: %s", data)
 
-    game_id = generate_game_id()
-    store_id = request.args.get('store_id') # this will be getted by user clicked button
-    game_name = request.args.get('game_name')
-    release_year = request.args.get('release_year')
-    num_of_players = request.args.get('num_of_players')
-    type_of_machine = request.args.get('type_of_machine')
-    game_cost = request.args.get('game_cost')
-    game_genre = request.args.get('game_genre')
+        game_id = generate_game_id()
+        store_id = data['store_id']
+        game_name = data['game_name']
+        release_year = data['release_year']
+        num_of_players = data['num_of_players']
+        type_of_machine = data['type_of_machine']
+        game_cost = data['game_cost']
+        game_genre = data['game_genre']
 
+        with open(config_file, "r") as f:
+            config = json.load(f)
+        connection_config = config["mysql"]
 
-    # game_id = 15
-    # store_id = 15 # this will be getted by user clicked button
-    # game_name = 'new_game'
-    # release_year = 1990
-    # num_of_players = 5
-    # type_of_machine = 'boxing'
-    # game_cost = 0.20
+        with mysql.connector.connect(**connection_config) as data_base:
+            with data_base.cursor() as cur:
+                logging.debug("Inserting into games table...")
+                cur.execute("""
+                    INSERT INTO games (game_id, game_name, release_year, num_of_players, type_of_machine, game_cost)
+                    VALUES (%s, %s, %s, %s, %s, %s)
+                    """, (game_id, game_name, release_year, num_of_players, type_of_machine, game_cost))
+                
+                logging.debug("Inserting into store_game table...")
+                cur.execute("""
+                    INSERT INTO store_game (store_id, game_id)
+                    VALUES (%s, %s)
+                    """, (store_id, game_id))
+                
+                logging.debug("Inserting into game_genre table...")
+                cur.execute("""
+                    INSERT INTO game_genre (game_id, genre)
+                    VALUES (%s, %s)
+                    """, (game_id, game_genre))
 
-    with open(config_file, "r") as f:
-        config = json.load(f)
-    connection_config = config["mysql"]
-    data_base = mysql.connector.connect(**connection_config)
+                data_base.commit()
 
-    # preparing a cursor object 
-    cur = data_base.cursor()
+        return jsonify({'message': 'Game added successfully'}), 200
 
-    cur.execute(f"INSERT INTO games (game_id, game_name, release_year, num_of_players, type_of_machine, game_cost)\
-                VALUES (\'{game_id}\',\'{game_name}\',\'{release_year}\',\'{num_of_players}\',\'{type_of_machine}\', \'{game_cost}\')")
-    
-    cur.execute(f"INSERT INTO store_game ( store_id, game_id)\
-                VALUES (\'{store_id}\',\'{game_id}\')")
-    
-    cur.execute(f"INSERT INTO game_genre ( game_id, genre)\
-                VALUES (\'{game_id}\',\'{game_genre}\')")
+    except Exception as e:
+        logging.error("Error in add_game: %s", e)
+        return jsonify({'error': str(e)}), 500
 
-    
-    data_base.commit()
-    cur.close()
-    
 
 # If user add a game and put a year < 1970 then will rollback
 def trigger_for_add():

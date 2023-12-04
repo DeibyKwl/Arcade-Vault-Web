@@ -57,7 +57,7 @@
                   <GameTableHeader /> {/* Use the GameTableHeader component */}
                   <tbody>
                     {games.map((games) => (
-                      <GameRow key={games.game_id} game={games} />
+                      <GameRow key={games.game_id} game={games}/>
                     ))}
 
                   </tbody>

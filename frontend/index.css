@@ -123,13 +123,6 @@
         /* Additional styles for the active tab */
     }
 
-    /* .red-orange-gradient-text {
-        background: linear-gradient(to bottom, #ffc800, rgb(150, 36, 5));
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-    } */
-
     .blue-gradient-text {
         background: linear-gradient(to bottom, #00eeff, rgb(80, 80, 255));
         -webkit-background-clip: text;
