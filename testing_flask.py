@@ -472,6 +472,38 @@ def add_store():
     data_base.commit()
     cur.close()
 
+@app.route('/update_store', methods=['PUT'])
+def update_store():
+    # Read the configuration for the database connection
+    with open(config_file, "r") as f:
+        config = json.load(f)
+    connection_config = config["mysql"]
+    data_base = mysql.connector.connect(**connection_config)
+
+    # Extract data from the PUT request
+    data = request.json
+    store_id = data.get('store_id')
+    store_name = data.get('store_name')
+    website = data.get('website')
+    city = data.get('city')
+    address = data.get('address')
+
+    try:
+        cur = data_base.cursor()
+        update_query = """
+        UPDATE store
+        SET store_name = %s, website = %s, city = %s, address = %s
+        WHERE store_id = %s
+        """
+        cur.execute(update_query, (store_name, website, city, address, store_id))
+        data_base.commit()
+        cur.close()
+        return jsonify({"success": True, "message": "Store updated successfully"}), 200
+    except Exception as e:
+        return jsonify({"success": False, "message": str(e)}), 500
+    finally:
+        if data_base.is_connected():
+            data_base.close()
 
 @app.route('/add_game')
 def add_game():

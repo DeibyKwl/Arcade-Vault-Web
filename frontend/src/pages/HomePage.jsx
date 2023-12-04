@@ -9,6 +9,7 @@ import StoreByCity from '../components/StoreByCity.jsx';
 import GamesByCost from '../components/GamesByCost.jsx';
 import GamesByTypeOfMachine from '../components/GamesByTypeOfMachine.jsx';
 import GamesByNumOfPlayers from '../components/GamesByNumOfPlayers.jsx';
+import UpdateStore from '../components/UpdateStore.jsx';
 
 const HomePage = () => {
     const [activeTab, setActiveTab] = useState('stores');
@@ -35,6 +36,8 @@ const HomePage = () => {
                 return <StoreByCity />;
             case 'gamesbynumofplayers':
                 return <GamesByNumOfPlayers />;
+            case 'updatestore':
+                return <UpdateStore />;
             default:
                 return <AllStores />;
         }
@@ -45,13 +48,13 @@ const HomePage = () => {
     };
 
     return (
-        <div className="screen-bg min-h-screen flex flex-col items-center justify-center">
-            <div className="screen-effect w-full max-w-6xl p-4">
-                <div className="body min-h-screen flex flex-col items-center justify-center p-4">
-                    <div className="flex justify-center  w-full px-10 mt-4">
+        <div className="min-h-screen flex flex-col">
+            <div className="w-full">
+                <div className="body min-h-screen flex flex-col items-center p-4">
+                    <div className="flex w-full justify-between">
                         <h2 className="arcade-font text-lg text-yellow-500">HI-SCORE-29500</h2>
-                        <h1 className="arcade-font red-orange-gradient-text text-2xl flex justify-center px-16 pb-6 ">Arcade Vault</h1>
-                        <h2 className="arcade-font text-lg text-yellow-500 outline-text">  CREDIT 0</h2>
+                        <h1 className="arcade-font red-orange-gradient-text text-2xl flex px-16 pb-6">Arcade Vault</h1>
+                        <h2 className="arcade-font text-lg text-yellow-500">CREDIT 0</h2>
                     </div>
                     <div className='justify-center'>
                         <Navbar onSelect={handleDropdownSelect} />
@@ -71,7 +74,7 @@ const HomePage = () => {
 function Navbar({ onSelect }) {
     return (
         <div className="flex justify-center  w-full"> {/* Add justify-center class */}
-            <nav className=" flex justify-center gap-4 px-10 text-green-200 text-shadow-lg">
+            <nav className=" flex justify-center gap-4 px-10 text-orange-500 text-shadow-lg">
                 <DropdownNavItem title="Stores" onSelect={onSelect}>
                     <DropdownMenu>
                         <DropdownItem onSelect={() => onSelect('storebyaddress')}>Search Stores by Address</DropdownItem>
@@ -92,6 +95,13 @@ function Navbar({ onSelect }) {
 
                     </DropdownMenu>
                 </DropdownNavItem>
+
+                <DropdownNavItem title="Modify" onSelect={onSelect}>
+                    <DropdownMenu>
+                        <DropdownItem onSelect={() => onSelect('updatestore')}>Update Stores</DropdownItem>
+                    </DropdownMenu>
+                </DropdownNavItem>
+
             </nav>
         </div>
     );
@@ -150,7 +160,7 @@ function DropdownItem({ onSelect, closeDropdown, children }) {
             }}
         >
             {isHovering && (
-                <span className="blinking-cursor absolute left-0 inset-y-0 flex items-center pl-2">{'>'}</span>            )}
+                <span className="blinking-cursor text-white absolute left-0 inset-y-0 flex items-center pl-2">{'>'}</span>            )}
             <span className={`hover-blue-gradient ${isHovering ? 'blue-gradient-text' : ''}`}>
                 {children}
             </span>
