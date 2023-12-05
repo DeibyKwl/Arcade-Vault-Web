@@ -580,10 +580,10 @@ def delete_store(store_id):
 
         with mysql.connector.connect(**connection_config) as data_base:
             with data_base.cursor() as cur:
-                # Update the user table to use the special 'no store' ID
-                special_no_store_id = 777777  # Replace with your chosen special ID
-                cur.execute("UPDATE user SET store_id = %s WHERE store_id = %s", (special_no_store_id, store_id))
-
+                
+                cur.execute("DELETE FROM store_game WHERE store_id = %s", (store_id,))
+                cur.execute("DELETE FROM store_hours WHERE store_id = %s", (store_id,))
+                cur.execute("DELETE FROM user WHERE store_id = %s", (store_id,))
                 # Then, delete the store
                 cur.execute("DELETE FROM store WHERE store_id = %s", (store_id,))
                 data_base.commit()
