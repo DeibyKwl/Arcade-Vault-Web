@@ -604,14 +604,14 @@ def delete_game(game_id):
         with mysql.connector.connect(**connection_config) as data_base:
             with data_base.cursor() as cur:
                 # Assuming 'game_id' is the primary key for the 'games' table
+                
+                cur.execute("DELETE FROM game_genre WHERE game_id = %s", (game_id,))
+                cur.execute("DELETE FROM store_game WHERE game_id = %s", (game_id,))
                 cur.execute("DELETE FROM games WHERE game_id = %s", (game_id,))
                 data_base.commit()
 
                 # Check if the game was actually deleted
-                if cur.rowcount > 0:
-                    return jsonify({'message': 'Game deleted successfully'}), 200
-                else:
-                    return jsonify({'message': 'Game not found'}), 404
+                return jsonify({'message': 'Game deleted successfully'}), 200
 
     except Exception as e:
         logging.error("Error in delete_game: %s", e)
