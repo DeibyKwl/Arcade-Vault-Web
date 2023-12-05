@@ -16,6 +16,7 @@ def index():
 
 config_file = "connectorConfig.json"
 
+# Retrieve all stores from the database
 @app.route('/all_stores')
 def all_stores_query():
     with open(config_file, "r") as f:
@@ -31,7 +32,7 @@ def all_stores_query():
     return jsonify(data)
 
 
-
+# Retrieve all games from the database
 @app.route('/all_games')
 def all_games_query():
     with open(config_file, "r") as f:
@@ -46,7 +47,7 @@ def all_games_query():
     cur.close()
     return jsonify(data)
 
-
+# Search game by year released
 @app.route('/games_by_year')
 def games_by_year():
     year_value = request.args.get('year_value')
@@ -57,13 +58,13 @@ def games_by_year():
     
     # preparing a cursor object
     cur = data_base.cursor()
-    cur.execute(f"SELECT game_name FROM games WHERE release_year = {year_value}")
+    cur.execute("SELECT game_name FROM games WHERE release_year = %s", (year_value,))
     data = cur.fetchall()
     cur.close()
     return jsonify(data)
 
 
-# Search game by cost (NOT IMPLEMENTED YET)
+# Search game by cost
 @app.route('/game_by_cost')
 def game_by_cost():
     cost_value = request.args.get('cost_value')
@@ -77,15 +78,14 @@ def game_by_cost():
     cur.execute("SELECT game_name, game_cost from games\
                 INNER JOIN store_game ON store_game.game_id = games.game_id\
                 WHERE game_cost <= %s", (cost_value,))
-    
     # alex note: I added a comma after cost_value because it needs to be a tuple to return name and cost
-    
+
     data = cur.fetchall()
     cur.close()
     return jsonify(data)
 
 
-# Search game by type of machine (NOT IMPLEMENTED YET)
+# Search game by type of machine 
 @app.route('/game_by_type_of_machine')
 def game_by_type_of_machine():
     type_of_machine = request.args.get('type_of_machine')
@@ -96,15 +96,15 @@ def game_by_type_of_machine():
 
     # preparing a cursor object 
     cur = data_base.cursor()
-    cur.execute(f"SELECT game_name, type_of_machine FROM games\
-                WHERE type_of_machine LIKE \'%{type_of_machine}%\';")
+    cur.execute("SELECT game_name, type_of_machine FROM games\
+                WHERE type_of_machine LIKE %s;", ('%' +type_of_machine + '%',))
     
     data = cur.fetchall()
     cur.close()
     return jsonify(data)
 
 
-# Search game by genre (NOT IMPLEMENTED YET)
+# Search game by genre
 @app.route('/game_by_genre')
 def game_by_genre():
 
@@ -131,9 +131,9 @@ def game_by_genre():
     # If it is looking for 1 genre
     if len(genre_value) == 1:
         genre_value = ''.join(genre_value) # Turn back into string
-        cur.execute(f"SELECT game_name FROM games\
+        cur.execute("SELECT game_name FROM games\
                     INNER JOIN game_genre ON game_genre.game_id = games.game_id\
-                    WHERE genre LIKE \'%{genre_value}%\';")
+                    WHERE genre LIKE %s;",('%' +genre_value + '%',))
         
     # If it is looking for more than one genre, it has to be full names for the genre
     else:
@@ -149,7 +149,7 @@ def game_by_genre():
 
 
 
-# Search game by number of players (NOT IMPLEMENTED YET)
+# Search game by number of players
 @app.route('/game_by_num_players')
 def game_by_num_players():
     num_of_players = request.args.get('num_of_players')
@@ -160,8 +160,8 @@ def game_by_num_players():
 
     # preparing a cursor object 
     cur = data_base.cursor()
-    cur.execute(f"SELECT game_name, num_of_players FROM games\
-                WHERE num_of_players <= {num_of_players};")
+    cur.execute("SELECT game_name, num_of_players FROM games\
+                WHERE num_of_players <= %s;", (num_of_players,))
     
     data = cur.fetchall()
     cur.close()
@@ -169,9 +169,7 @@ def game_by_num_players():
 
 
 
-
-
-# Search games by store name (NOT IMPLEMENTED YET)
+# Search games by store name
 @app.route('/games_by_store')
 def games_by_store():
     store_name = request.args.get('store_name')
@@ -181,14 +179,11 @@ def games_by_store():
     data_base = mysql.connector.connect(**connection_config)
 
     cur = data_base.cursor()
-    query = """
-        SELECT games.game_id, games.game_name, games.release_year, games.num_of_players, games.type_of_machine, games.game_cost
-        FROM games
-        INNER JOIN store_game ON store_game.game_id = games.game_id
-        INNER JOIN store ON store.store_id = store_game.store_id
-        WHERE store.store_name LIKE %s;
-    """
-    cur.execute(query, ('%' + store_name + '%',))
+    cur.execute("SELECT games.game_id, games.game_name, games.release_year, games.num_of_players, games.type_of_machine, games.game_cost\
+                FROM games\
+                INNER JOIN store_game ON store_game.game_id = games.game_id\
+                INNER JOIN store ON store.store_id = store_game.store_id\
+                WHERE store.store_name LIKE %s;", ('%' + store_name + '%',))
     data = cur.fetchall()
     cur.close()
     return jsonify(data)
@@ -196,7 +191,7 @@ def games_by_store():
 
 
 
-# Search store by address (NOT IMPLEMENTED YET) 
+# Search store by address
 @app.route('/store_by_address')
 def store_by_address():
     store_address = request.args.get('store_address')
@@ -215,10 +210,7 @@ def store_by_address():
 
 
 
-
-
-
-# Search store by city (NOT IMPLEMENTED YET) 
+# Search store by city
 @app.route('/store_by_city')
 def store_by_city():
     store_city = request.args.get('store_city')
@@ -344,18 +336,6 @@ def count_all_genres():
     return jsonify(data)
 
 
-
-
-# SHOULD WE IMPLEMENT THEM???? search store by store_name and search game by game_name
-
-
-
-
-
-
-
-
-# SECTION FOR INSERTING, UPDATING, AND DELETING ######################################################################## (NOT IMPLEMENTED YET)
 
 
 def generate_used_store_ids():
