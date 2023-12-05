@@ -13,6 +13,8 @@ import UpdateStore from '../components/UpdateStore.jsx';
 import UpdateGame from '../components/UpdateGame.jsx';
 import AddGame from '../components/AddGame.jsx';
 import AddStore from '../components/AddStore.jsx';
+import DeleteGame from '../components/DeleteGame.jsx';
+import DeleteStore from '../components/DeleteStore.jsx';
 
 
 const HomePage = () => {
@@ -48,6 +50,10 @@ const HomePage = () => {
                 return <AddGame />;
             case 'addstore':
                 return <AddStore />;
+            case 'deletegame':
+                return <DeleteGame />;
+            case 'deletestore':
+                return <DeleteStore />;
             default:
                 return <AllStores />;
         }
@@ -63,9 +69,10 @@ const HomePage = () => {
                 <div className="body min-h-screen flex flex-col items-center p-4">
                     <div className="flex w-full justify-between">
                         <h2 className="arcade-font text-lg text-yellow-500">HI-SCORE-29500</h2>
-                        <h1 className="arcade-font red-orange-gradient-text text-2xl flex px-16 pb-6">Arcade Vault</h1>
                         <h2 className="arcade-font text-lg text-yellow-500">CREDIT 0</h2>
                     </div>
+                    <h1 className="arcade-font red-orange-gradient-text justify-center text-2xl flex px-16 pb-6">Arcade Vault</h1>
+
                     <div className='justify-center'>
                         <Navbar onSelect={handleDropdownSelect} />
                     </div>
@@ -113,6 +120,8 @@ function Navbar({ onSelect }) {
                         <DropdownItem onSelect={() => onSelect('updategame')}>Update Games</DropdownItem>
                         <DropdownItem onSelect={() => onSelect('addgame')}>Add Games</DropdownItem>
                         <DropdownItem onSelect={() => onSelect('addstore')}>Add Stores</DropdownItem>
+                        <DropdownItem onSelect={() => onSelect('deletegame')}>Delete Games</DropdownItem>
+                        <DropdownItem onSelect={() => onSelect('deletestore')}>Delete Stores</DropdownItem>
                     </DropdownMenu>
                 </DropdownNavItem>
 

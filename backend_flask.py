@@ -590,6 +590,53 @@ def add_game():
         return jsonify({'error': str(e)}), 500
 
 
+@app.route('/delete_store/<int:store_id>', methods=['DELETE'])
+def delete_store(store_id):
+    print(f"Attempting to delete store with ID: {store_id}")
+    try:
+        with open(config_file, "r") as f:
+            config = json.load(f)
+        connection_config = config["mysql"]
+
+        with mysql.connector.connect(**connection_config) as data_base:
+            with data_base.cursor() as cur:
+                # Update the user table to use the special 'no store' ID
+                special_no_store_id = 777777  # Replace with your chosen special ID
+                cur.execute("UPDATE user SET store_id = %s WHERE store_id = %s", (special_no_store_id, store_id))
+
+                # Then, delete the store
+                cur.execute("DELETE FROM store WHERE store_id = %s", (store_id,))
+                data_base.commit()
+
+        return jsonify({'message': 'Store deleted successfully'}), 200
+    except Exception as e:
+        data_base.rollback()
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/delete_game/<int:game_id>', methods=['DELETE'])
+def delete_game(game_id):
+    try:
+        with open(config_file, "r") as f:
+            config = json.load(f)
+        connection_config = config["mysql"]
+        
+        with mysql.connector.connect(**connection_config) as data_base:
+            with data_base.cursor() as cur:
+                # Assuming 'game_id' is the primary key for the 'games' table
+                cur.execute("DELETE FROM games WHERE game_id = %s", (game_id,))
+                data_base.commit()
+
+                # Check if the game was actually deleted
+                if cur.rowcount > 0:
+                    return jsonify({'message': 'Game deleted successfully'}), 200
+                else:
+                    return jsonify({'message': 'Game not found'}), 404
+
+    except Exception as e:
+        logging.error("Error in delete_game: %s", e)
+        return jsonify({'error': str(e)}), 500
+
 # If user add a game and put a year < 1970 then will rollback
 def trigger_for_add():
     with open(config_file, "r") as f:
