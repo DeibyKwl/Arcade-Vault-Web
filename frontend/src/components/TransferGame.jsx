@@ -9,6 +9,9 @@ const TransferGame = () => {
     const [toStore, setToStore] = useState(''); // Store transferring to
     const [message, setMessage] = useState('');
 
+// mostly working, transfering from initial store to second store, 
+// then clicking the storeswap button and then trying to swap again reports an error but will still swap the game
+
     const fetchData = async () => {
         try {
             const gamesResponse = await axios.get('http://localhost:5000/all_games');
