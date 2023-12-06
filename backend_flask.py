@@ -568,6 +568,42 @@ def add_game():
     except Exception as e:
         logging.error("Error in add_game: %s", e)
         return jsonify({'error': str(e)}), 500
+    
+
+#I want to trasnfer a game from one store to another using a transaction, which will rollback if the game is not in the inital store
+@app.route('/transfer_game/<int:game_id>/<int:from_store_id>/<int:to_store_id>', methods=['PUT'])
+def transfer_game(game_id, from_store_id, to_store_id):
+    try:
+        with open(config_file, "r") as f:
+            config = json.load(f)
+        connection_config = config["mysql"]
+
+        with mysql.connector.connect(**connection_config) as data_base:
+            with data_base.cursor() as cur:
+                data_base.start_transaction()
+
+                # check if the game is in the initial store
+                cur.execute("SELECT game_id FROM store_game WHERE game_id = %s AND store_id = %s", (game_id, from_store_id))
+                data = cur.fetchall()
+                if len(data) == 0:
+                    return jsonify({'error': 'Game is not in the initial store'}), 500
+                
+                # deleet the game 
+                cur.execute("DELETE FROM store_game WHERE game_id = %s AND store_id = %s", (game_id, from_store_id))
+
+                # add the game
+                cur.execute("INSERT INTO store_game (game_id, store_id) VALUES (%s, %s)", (game_id, to_store_id))
+
+                # commit the transaction
+                data_base.commit()
+
+        return jsonify({'message': 'Game transferred successfully'}), 200
+
+    except Exception as e:
+        # Rollback in case of error
+        data_base.rollback()
+        return jsonify({'error': str(e)}), 500
+
 
 
 @app.route('/delete_store/<int:store_id>', methods=['DELETE'])

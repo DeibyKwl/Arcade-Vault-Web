@@ -15,6 +15,8 @@ import AddGame from '../components/AddGame.jsx';
 import AddStore from '../components/AddStore.jsx';
 import DeleteGame from '../components/DeleteGame.jsx';
 import DeleteStore from '../components/DeleteStore.jsx';
+import TransferGame from '../components/TransferGame.jsx';
+
 
 
 const HomePage = () => {
@@ -54,6 +56,8 @@ const HomePage = () => {
                 return <DeleteGame />;
             case 'deletestore':
                 return <DeleteStore />;
+            case 'transfergame':
+                return <TransferGame />;
             default:
                 return <AllStores />;
         }
@@ -118,6 +122,7 @@ function Navbar({ onSelect }) {
                     <DropdownMenu>
                         <DropdownItem onSelect={() => onSelect('updatestore')}>Update Stores</DropdownItem>
                         <DropdownItem onSelect={() => onSelect('updategame')}>Update Games</DropdownItem>
+                        <DropdownItem onSelect={() => onSelect('transfergame')}>Transfer Games</DropdownItem>
                         <DropdownItem onSelect={() => onSelect('addgame')}>Add Games</DropdownItem>
                         <DropdownItem onSelect={() => onSelect('addstore')}>Add Stores</DropdownItem>
                         <DropdownItem onSelect={() => onSelect('deletegame')}>Delete Games</DropdownItem>
