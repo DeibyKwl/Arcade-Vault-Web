@@ -6,7 +6,7 @@
   <!-- <a href="https://data_gen_py_manager.netlify.app">Demo</a> -->
 </div>
 
-<h1 align="center">Data_Gen_Py_Manager</h1>
+<h1 align="center">Arcade-Vault-Web</h1>
 
 <p align="center">
 
