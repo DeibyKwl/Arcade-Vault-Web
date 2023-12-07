@@ -60,9 +60,9 @@ const AddGame = () => {
         'Boxing'
     ];
 
-    const costs = Array.from({length: 8}, (_, i) => (i + 1) * 0.25);
-    const years = Array.from({length: 2023 - 1970 + 1}, (_, i) => 1970 + i);
-    
+    const costs = Array.from({ length: 8 }, (_, i) => (i + 1) * 0.25);
+    const years = Array.from({ length: 2023 - 1970 + 1 }, (_, i) => 1970 + i);
+
     const genres = [
         'Shooter',
         'Platformer',
@@ -77,9 +77,9 @@ const AddGame = () => {
         'Sport'
     ];
 
-    const num_of_players = Array.from({length: 4}, (_, i) => i + 1);
+    const num_of_players = Array.from({ length: 4 }, (_, i) => i + 1);
 
-    
+
     return (
         <div>
             <h2 className="pixel-font text-2xl p-4 text-White text-center">Add Game</h2>
@@ -187,13 +187,11 @@ const AddGame = () => {
                     </select>
                 </div>
 
-                <form>
-                    {/* Form fields */}
-                    <div className="flex justify-center"> {/* Add the flex and justify-center classes */}
-                        <button className='text-white text-center items-center hover:text-blue-400' type="submit">Submit Game</button>
-                    </div>
-                </form>
-            {responseMessage && <p className='pixel-font text-xs text-center text-green-300 mt-4'>{responseMessage}</p>}
+                {/* Form fields */}
+                <div className="flex justify-center"> {/* Add the flex and justify-center classes */}
+                    <button className='text-white text-center items-center hover:text-blue-400' type="submit">Submit Game</button>
+                </div>
+                {responseMessage && <p className='pixel-font text-xs text-center text-green-300 mt-4'>{responseMessage}</p>}
             </form>
         </div>
     );
