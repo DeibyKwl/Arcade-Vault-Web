@@ -117,7 +117,7 @@ $ cd frontend
 #finally run this to install dependencies
 npm i
 
-#and this will take you to the page
+#and this will allow you to access the page
 npm start
 
 ```
