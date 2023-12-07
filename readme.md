@@ -103,6 +103,7 @@ $ python insert_into_tables.py
 #Step 6 - Set up backend
 # make sure flask is installed
 $ pip install flask
+$ pip install Flask-Cors
 
 #from root of repo
 $ python backend_flask.py
