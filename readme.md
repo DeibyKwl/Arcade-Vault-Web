@@ -26,27 +26,17 @@ This project, Arcade Vault, consists of Python scripts designed to generate fake
 :heavy_check_mark: Generate detailed arcade store data including store names, websites, addresses, and operating hours;\
 :heavy_check_mark: Create realistic user profiles associated with each arcade store;\
 :heavy_check_mark: Produce diverse arcade game data including names, genres, prices, and types of machines;\
-:heavy_check_mark: Write all generated data to CSV files for easy import and use in various applications.
-:heavy_check_mark: Flask connected to MySQL, allowing for database management using SQL queries
-:heavy_check_mark: Implement Resfull API endpoints using Flask, allowing for CRUD operations
-:heavy_check_mark: Nice looking frontend for easy user experience
-:heavy_check_mark: Use of SQL triggers, SQL joins, and SQL transactions among many other SQL queries
+:heavy_check_mark: Write all generated data to CSV files for easy import and use in various applications.;\
+:heavy_check_mark: Flask connected to MySQL, allowing for database management using SQL queries.;\
+:heavy_check_mark: Implement Resfull API endpoints using Flask, allowing for CRUD operations.;\
+:heavy_check_mark: Nice looking frontend for easy user experience.;\
+:heavy_check_mark: Use of SQL triggers, SQL joins, and SQL transactions among many other SQL queries;\
 
 ## :wrench: SQL Database Integration ##
 
-Included in the project are SQL scripts located in the `search_queries` directory which facilitate the management of the generated CSV data within a SQL database. These scripts allow for:
+In this new and improved repo for the final stretch of our project, 
 
-- Creating tables corresponding to the generated CSV structure.
-- Inserting generated data into the database.
-- Performing search operations through predefined SQL queries.
-- Counting, searching, and organizing data based on various attributes such as genre, cost, and more.
-
-To use these SQL scripts:
-
-1. Create your database and set it up according to your SQL server.
-2. Execute the `table_*.sql` scripts to create the necessary tables.
-3. Use the `insert_into_tables.py` script to populate the database with the data from CSV files.
-4. Utilize the search query scripts to retrieve or manipulate data as needed.
+These queries are utilzed in our backend_flask.py, which uses Axios API calls and is then used to route to different queries baked into the frontend.
 
 ## :rocket: Technologies ##
 
@@ -103,7 +93,6 @@ $ python insert_into_tables.py
 #Step 6 - Set up backend
 # make sure flask is installed
 $ pip install flask
-$ pip install Flask-Cors
 
 #from root of repo
 $ python backend_flask.py
