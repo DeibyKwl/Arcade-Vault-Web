@@ -6,20 +6,19 @@ import GameTableHeader from '../rowcomponents/GameTableHeader';
 const AllGames = () => {
     const [games, setGames] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const [loading, setLoading] = useState(false); // Added loading state
+    const [loading, setLoading] = useState(false); 
 
     useEffect(() => {
         const fetchGames = async () => {
-            setLoading(true); // Start loading
+            setLoading(true); 
             try {
                 const response = await axios.get('http://localhost:5000/all_games');
-                console.log(response.data); // Log the response data
+                console.log(response.data); 
                 setGames(response.data);
             } catch (error) {
                 console.error('Error fetching data: ', error);
-                // Optionally update the UI to show an error message
             }
-            setLoading(false); // Finish loading
+            setLoading(false);
         };
 
         fetchGames();

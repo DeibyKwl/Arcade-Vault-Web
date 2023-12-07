@@ -1,0 +1,86 @@
+.
+├── backend_flask.py
+├── connectorConfig.json
+├── db_starter.py
+├── frontend
+│   ├── README.md
+│   ├── build
+│   │   ├── assets
+│   │   │   ├── index-AxLi5qG9.js
+│   │   │   └── web-vitals-h7xukfVX.js
+│   │   ├── favicon.ico
+│   │   ├── index.css
+│   │   ├── index.html
+│   │   ├── logo192.png
+│   │   ├── logo512.png
+│   │   ├── manifest.json
+│   │   └── robots.txt
+│   ├── index.css
+│   ├── index.html
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── postcss.config.js
+│   ├── public
+│   │   ├── favicon.ico
+│   │   ├── logo192.png
+│   │   ├── logo512.png
+│   │   ├── manifest.json
+│   │   └── robots.txt
+│   ├── src
+│   │   ├── components
+│   │   │   ├── AddGame.jsx
+│   │   │   ├── AddStore.jsx
+│   │   │   ├── AllGames.jsx
+│   │   │   ├── AllStores.jsx
+│   │   │   ├── DeleteGame.jsx
+│   │   │   ├── DeleteStore.jsx
+│   │   │   ├── GamesByCost.jsx
+│   │   │   ├── GamesByGenre.jsx
+│   │   │   ├── GamesByNumOfPlayers.jsx
+│   │   │   ├── GamesByStore.jsx
+│   │   │   ├── GamesByTypeOfMachine.jsx
+│   │   │   ├── GamesByYear.jsx
+│   │   │   ├── StoreByAddress.jsx
+│   │   │   ├── StoreByCity.jsx
+│   │   │   ├── TransferGame.jsx
+│   │   │   ├── UpdateGame.jsx
+│   │   │   └── UpdateStore.jsx
+│   │   ├── index.jsx
+│   │   ├── pages
+│   │   │   └── HomePage.jsx
+│   │   ├── reportWebVitals.js
+│   │   ├── rowcomponents
+│   │   │   ├── GameRow.jsx
+│   │   │   ├── GameTableHeader.jsx
+│   │   │   ├── SimpleRow.jsx
+│   │   │   ├── StoreRow.jsx
+│   │   │   └── StoreTableHeader.jsx
+│   │   └── setupTests.js
+│   ├── tailwind.config.js
+│   └── vite.config.js
+├── generate_data.py
+├── generated_data
+│   ├── game_data
+│   │   ├── default_games.csv
+│   │   └── game.csv
+│   ├── generate_game.py
+│   ├── generate_store.py
+│   ├── generate_user.py
+│   ├── store_data
+│   │   ├── default_stores.csv
+│   │   └── store.csv
+│   └── user_data
+│       └── user.csv
+├── insert_into_tables.py
+├── package-lock.json
+├── readme.md
+├── repo_structure.txt
+└── table
+    ├── table_game_genre.sql
+    ├── table_games.sql
+    ├── table_store.sql
+    ├── table_store_game.sql
+    ├── table_store_hours.sql
+    └── table_user.sql
+
+14 directories, 70 files

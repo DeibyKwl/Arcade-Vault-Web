@@ -73,6 +73,7 @@ const UpdateStore = () => {
 
     return (
         <div>
+            
             <div className='flex flex-col items-center p-2'>
                 <h2 className="text-center">Update Store</h2>
                 <input
