@@ -1,160 +1,91 @@
 <div align="center" id="top"> 
-  <img src="./.github/app.gif" alt="Arcade-Vault-Web" />
+  <img src="./.github/app.gif" alt="ARCADE VAULT" />
 
- 
-  <!-- <a href="https://arcadevaultweb.netlify.app">Demo</a> -->
+  &#xa0;
+
+  <!-- <a href="https://data_gen_py_manager.netlify.app">Demo</a> -->
 </div>
-<h1 align="center">Arcade Vault Web</h1>
+
+<h1 align="center">Data_Gen_Py_Manager</h1>
+
 <p align="center">
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/YourUsername/Arcade-Vault-Web?color=56BEB8">
-  <img alt="License" src="https://img.shields.io/github/license/YourUsername/Arcade-Vault-Web?color=56BEB8">
+
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/DeibyKwl/Arcade-Vault-Web?color=56BEB8">
+
+  <img alt="License" src="https://img.shields.io/github/license/DeibyKwl/Data_Gen_Py_Manager?color=56BEB8">
 </p>
+
 <br>
-:dart: About
 
-Arcade Vault Web is a full-stack application designed to manage and visualize data for arcade stores and games. It features a React-based frontend with TailwindCSS for styling, and a Flask backend handling API requests and SQL queries to a MySQL database. This application integrates the functionalities of "Data_Gen_Py_Manager", allowing users to generate, manage, and view fake data for arcade-related scenarios - perfect for database testing, arcade management simulations, or any application requiring detailed arcade data.
-:sparkles: Features
+## :dart: About ##
 
-:heavy_check_mark: Intuitive React frontend for easy data management and visualization.
-:heavy_check_mark: Flask backend for efficient API handling and database interaction.
-:heavy_check_mark: TailwindCSS for modern, responsive UI design.
-:heavy_check_mark: Integration with Data_Gen_Py_Manager for generating realistic arcade store and game data.
-:heavy_check_mark: Comprehensive MySQL database integration for data storage and retrieval.
-:rocket: Technologies
+This project, Arcade Vault, consists of Python scripts designed to generate fake data for arcade stores and games. The scripts create realistic and comprehensive datasets including store details like names, websites, addresses, operating hours, user information, and game information such as game names, genres, prices, and the type of machine. This data can be used for testing databases, applications related to arcade management, or any other purpose where mock arcade data is needed.
 
-This project is developed using:
+## :sparkles: Features ##
 
-    React for the frontend.
-    TailwindCSS for styling.
-    Axios for API requests.
-    Flask for the backend server.
-    MySQL for the database.
-    Python for backend scripting and data generation.
+:heavy_check_mark: Generate detailed arcade store data including store names, websites, addresses, and operating hours;\
+:heavy_check_mark: Create realistic user profiles associated with each arcade store;\
+:heavy_check_mark: Produce diverse arcade game data including names, genres, prices, and types of machines;\
+:heavy_check_mark: Write all generated data to CSV files for easy import and use in various applications.
 
-:white_check_mark: Requirements
+## :wrench: SQL Database Integration ##
 
-Before starting :checkered_flag:, you need to have Git, Node.js, Python, and MySQL installed.
-:checkered_flag: Starting
+Included in the project are SQL scripts located in the `search_queries` directory which facilitate the management of the generated CSV data within a SQL database. These scripts allow for:
 
-bash
+- Creating tables corresponding to the generated CSV structure.
+- Inserting generated data into the database.
+- Performing search operations through predefined SQL queries.
+- Counting, searching, and organizing data based on various attributes such as genre, cost, and more.
 
+To use these SQL scripts:
+
+1. Create your database and set it up according to your SQL server.
+2. Execute the `table_*.sql` scripts to create the necessary tables.
+3. Use the `insert_into_tables.py` script to populate the database with the data from CSV files.
+4. Utilize the search query scripts to retrieve or manipulate data as needed.
+
+## :rocket: Technologies ##
+
+The following tools were used in this project:
+
+
+- [Python](https://www.python.org/) for the main scripting language.
+- [Faker](https://faker.readthedocs.io/en/master/) for generating fake data.
+- [MySQL Workbench](https://www.mysql.com/products/workbench/) for database design, administration, and SQL development.
+- [TQDM](https://github.com/tqdm/tqdm/) Instantly make your loops show a progress meter.
+
+- SQL for defining and manipulating data in the database.
+
+## :white_check_mark: Requirements ##
+
+Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) and [Python](https://www.python.org/) installed.
+
+## :checkered_flag: Starting ##
+
+```bash
 # Clone this project
-$ git clone https://github.com/YourUsername/Arcade-Vault-Web
+$ git clone https://github.com/DeibyKwl/Data_Gen_Py_Manager
 
-# Access the project directory
-$ cd Arcade-Vault-Web
+# Access
+$ cd Data_Gen_Py_Manager
 
-# Install frontend dependencies
-$ cd frontend
-$ npm install
+# Install dependencies
+$ pip install faker
+$ pip3 install mysql-connector-python
+$ pip install tqdm
 
-# Start the frontend application
-$ npm start
-
-# Install backend dependencies
-$ cd ../backend_flask
-$ pip install -r requirements.txt
-
-# Start the backend server
-$ python backend_flask.py
-
-# Optionally, generate and insert fake data into the database using Data_Gen_Py_Manager scripts
-$ cd ../Data_Gen_Py_Manager
+# Run the project
+$ python db_starter.py
 $ python generate_data.py
 $ python insert_into_tables.py
 
-:memo: License
+# The generated data will be available in the specified output directories
+```
 
-This project is under license from MIT. For more details, see the LICENSE file.
+## :memo: License ##
 
-Made with :heart: by <a href="https://github.com/YourUsername" target="_blank">Your Name</a>
+This project is under license from MIT. For more details, see the [LICENSE](LICENSE.md) file.
 
-<a href="#top">Back to top</a>
+Made with :heart: by <a href="https://github.com/DeibyKwl" target="_blank">Deiby Wu</a> and <a href="https://github.com/alexo75" target="_blank">Alex O'Neill</a>
 
-
-.
-├── backend_flask.py
-├── connectorConfig.json
-├── db_starter.py
-├── frontend
-│   ├── README.md
-│   ├── build
-│   │   ├── assets
-│   │   │   ├── index-AxLi5qG9.js
-│   │   │   └── web-vitals-h7xukfVX.js
-│   │   ├── favicon.ico
-│   │   ├── index.css
-│   │   ├── index.html
-│   │   ├── logo192.png
-│   │   ├── logo512.png
-│   │   ├── manifest.json
-│   │   └── robots.txt
-│   ├── index.css
-│   ├── index.html
-│   ├── package-lock.json
-│   ├── package.json
-│   ├── postcss.config.js
-│   ├── public
-│   │   ├── favicon.ico
-│   │   ├── logo192.png
-│   │   ├── logo512.png
-│   │   ├── manifest.json
-│   │   └── robots.txt
-│   ├── src
-│   │   ├── components
-│   │   │   ├── AddGame.jsx
-│   │   │   ├── AddStore.jsx
-│   │   │   ├── AllGames.jsx
-│   │   │   ├── AllStores.jsx
-│   │   │   ├── DeleteGame.jsx
-│   │   │   ├── DeleteStore.jsx
-│   │   │   ├── GamesByCost.jsx
-│   │   │   ├── GamesByGenre.jsx
-│   │   │   ├── GamesByNumOfPlayers.jsx
-│   │   │   ├── GamesByStore.jsx
-│   │   │   ├── GamesByTypeOfMachine.jsx
-│   │   │   ├── GamesByYear.jsx
-│   │   │   ├── StoreByAddress.jsx
-│   │   │   ├── StoreByCity.jsx
-│   │   │   ├── TransferGame.jsx
-│   │   │   ├── UpdateGame.jsx
-│   │   │   └── UpdateStore.jsx
-│   │   ├── index.jsx
-│   │   ├── pages
-│   │   │   └── HomePage.jsx
-│   │   ├── reportWebVitals.js
-│   │   ├── rowcomponents
-│   │   │   ├── GameRow.jsx
-│   │   │   ├── GameTableHeader.jsx
-│   │   │   ├── SimpleRow.jsx
-│   │   │   ├── StoreRow.jsx
-│   │   │   └── StoreTableHeader.jsx
-│   │   └── setupTests.js
-│   ├── tailwind.config.js
-│   └── vite.config.js
-├── generate_data.py
-├── generated_data
-│   ├── game_data
-│   │   ├── default_games.csv
-│   │   └── game.csv
-│   ├── generate_game.py
-│   ├── generate_store.py
-│   ├── generate_user.py
-│   ├── store_data
-│   │   ├── default_stores.csv
-│   │   └── store.csv
-│   └── user_data
-│       └── user.csv
-├── insert_into_tables.py
-├── package-lock.json
-├── readme.md
-├── repo_structure.txt
-└── table
-    ├── table_game_genre.sql
-    ├── table_games.sql
-    ├── table_store.sql
-    ├── table_store_game.sql
-    ├── table_store_hours.sql
-    └── table_user.sql
-
-14 directories, 70 files
+<a href="#top">Back to top</a>****
