@@ -1,5 +1,4 @@
 from flask import Flask, jsonify, request
-#from flask_mysqldb import MySQL
 import mysql.connector
 import json
 from flask_cors import CORS
@@ -228,9 +227,6 @@ def store_by_city():
     return jsonify(data)
 
 
-
-
-
 # Search store by games name (find a store with that particular game) (NOT IMPLEMENTED YET)
 @app.route('/store_by_games')
 def store_by_games():
@@ -250,92 +246,6 @@ def store_by_games():
     data = cur.fetchall()
     cur.close()
     return jsonify(data)
-
-
-
-
-
-# Look for game that cost less than the average of all games (this is gonna be its own tab, one click and will show everything) (NOT IMPLEMENTED YET)
-@app.route('/store_game_avg_cost_less_than_total_avg')
-def store_game_avg_cost_less_than_total_avg():
-    with open(config_file, "r") as f:
-        config = json.load(f)
-    connection_config = config["mysql"]
-    data_base = mysql.connector.connect(**connection_config)
-
-    # preparing a cursor object 
-    cur = data_base.cursor()
-    cur.execute(f"WITH cost_total (store_name, value) AS\
-                    (SELECT store_name, ROUND(AVG(game_cost), 2) FROM store\
-                    INNER JOIN store_game ON store_game.store_id = store.store_id\
-                    INNER JOIN games ON games.game_id = store_game.game_id\
-                    GROUP BY store_name)\
-                SELECT store_name, value FROM cost_total\
-                WHERE value < (SELECT AVG(value) FROM cost_total);")
-    
-    data = cur.fetchall()
-    cur.close()
-    return jsonify(data)
-
-
-
-
-# Search total cost of stores that are less than the average of total games of all stores (this is gonna be its own tab, one click and will show everything) (NOT IMPLEMENTED YET)
-@app.route('/store_total_coss_less_than_avg')
-def store_total_coss_less_than_avg():
-    with open(config_file, "r") as f:
-        config = json.load(f)
-    connection_config = config["mysql"]
-    data_base = mysql.connector.connect(**connection_config)
-
-    # preparing a cursor object 
-    cur = data_base.cursor()
-    cur.execute(f"WITH cost_total (store_name, value) AS\
-                    (SELECT store_name, SUM(game_cost) FROM store\
-                    INNER JOIN store_game ON store_game.store_id = store.store_id\
-                    INNER JOIN games ON games.game_id = store_game.game_id\
-                    GROUP BY store_name),\
-                cost_total_avg (value) AS\
-                (SELECT AVG(value) FROM cost_total)\
-                SELECT store_name, cost_total.value FROM cost_total, cost_total_avg\
-                WHERE cost_total.value < cost_total_avg.value;")
-    
-    data = cur.fetchall()
-    cur.close()
-    return jsonify(data)
-
-
-
-# Search store by store hours(this one will probably be the hardest) (NOT IMPLEMENTED YET)
-
-
-
-
-
-
-
-
-
-# Count games by genre (this is gonna be its own tab, one click and will show everything) (NOT IMPLEMENTED YET)
-@app.route('/count_all_genres')
-def count_all_genres():
-    with open(config_file, "r") as f:
-        config = json.load(f)
-    connection_config = config["mysql"]
-    data_base = mysql.connector.connect(**connection_config)
-
-    # preparing a cursor object 
-    cur = data_base.cursor()
-    cur.execute(f"SELECT genre, COUNT(*) AS num_of_games FROM games\
-                INNER JOIN game_genre ON game_genre.game_id = games.game_id\
-                GROUP BY genre\
-                ORDER BY COUNT(*) DESC;")
-    
-    data = cur.fetchall()
-    cur.close()
-    return jsonify(data)
-
-
 
 
 def generate_used_store_ids():
@@ -385,6 +295,7 @@ store_used_id = generate_used_store_ids()
 user_used_id = generate_used_user_ids()
 game_used_id = generate_used_games_ids()
 
+# Generate a new store_id
 def generate_store_id():
     global store_used_id
     while True:
@@ -392,7 +303,8 @@ def generate_store_id():
         if store_id not in store_used_id:
             store_used_id.append(store_id)
             return store_id
-    
+
+# Generate a new user_id
 def generate_user_id():
     global user_used_id
     while True:
@@ -401,6 +313,7 @@ def generate_user_id():
             user_used_id.append(user_id)
             return user_id
     
+# Generate a new game_id
 def generate_game_id():
     global game_used_id
     while True:
@@ -488,7 +401,7 @@ def update_store():
             data_base.close()
     
 
-# this should look a lot like update_store but for the game table
+
 @app.route('/update_game', methods=['PUT'])
 def update_game():
     with open(config_file, "r") as f:
@@ -570,7 +483,7 @@ def add_game():
         return jsonify({'error': str(e)}), 500
     
 
-#I want to trasnfer a game from one store to another using a transaction, which will rollback if the game is not in the inital store
+# I want to trasnfer a game from one store to another using a transaction, which will rollback if the game is not in the inital store
 @app.route('/transfer_game/<int:game_id>/<int:from_store_id>/<int:to_store_id>', methods=['PUT'])
 def transfer_game(game_id, from_store_id, to_store_id):
     try:
@@ -652,6 +565,7 @@ def delete_game(game_id):
     except Exception as e:
         logging.error("Error in delete_game: %s", e)
         return jsonify({'error': str(e)}), 500
+
 
 # If user add a game and put a year < 1970 then will rollback
 def trigger_for_add():
